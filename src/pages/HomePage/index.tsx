@@ -1,5 +1,6 @@
 import React from "react";
+import "./index.css";
 
 export default function HomePage() {
-  return <div>Home Page</div>;
+  return <div className="container">Home Page</div>;
 }

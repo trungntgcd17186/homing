@@ -1,43 +1,59 @@
 import { RouteProps, routes } from "../../lib/routes";
-import { useHistory } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import React from "react";
+import VectorUrl from "../../image/VectorUrl.svg";
 import { SiderProps } from "antd/lib/layout/Sider";
 
 interface Props extends SiderProps {}
 
 export default function SiderComponent(props: Props) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleTo = (context: any, key: string, pathname?: string) => () => {
-    console.log(pathname);
     if (pathname) {
-      history.push(pathname);
+      navigate(pathname);
     }
-
-    console.log("abc");
 
     // //Xử lý active sibar khi click vào menu sidebar
     // context.setRouteKey(key);
   };
 
-  const renderMenuItem = (route: RouteProps) => {
+  const renderMenuItem = (route: RouteProps, index: any) => {
     return (
       <Menu.Item
         key={route.key}
         disabled={route.disabled}
         onClick={handleTo("context", route.key, route.url)}
+        className="menu-items"
       >
-        {route.title}
+        {index === 4 ? (
+          <div>
+            <p className="my-media">My Media </p> {route.title}
+          </div>
+        ) : (
+          route.title
+        )}
       </Menu.Item>
     );
   };
   return (
-    <div style={{ height: "100vh", width: "100px" }} {...props}>
-      <div onClick={handleTo("/", "/")}></div>
-      <Menu theme="dark" mode="inline" selectedKeys={["context.routeKey"]}>
-        {routes.map((route) => renderMenuItem(route))}
-      </Menu>
+    <div>
+      <div style={{ marginTop: "20px" }}>
+        <a className="pathname-1" href="">
+          Home
+        </a>
+        <img style={{ marginLeft: "7px" }} src={VectorUrl} alt="icon" />
+        <a className="pathname-2" href="">
+          Edit My Profile
+        </a>
+      </div>
+      <div className="sider">
+        <p className="personal">Personal</p>
+        <Menu className="menu" theme="dark" mode="inline" selectedKeys={["4"]}>
+          {routes.map((route, index) => renderMenuItem(route, index))}
+        </Menu>
+      </div>
     </div>
   );
 }

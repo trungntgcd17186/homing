@@ -1,12 +1,11 @@
 import React from "react";
 import Exception from "./components/Exception";
-import logo from "./logo.svg";
 import "./App.css";
 import SiderComponent from "./components/ui/Sider";
 import { RouteProps, routes } from "./lib/routes";
 import { Layout } from "antd";
 import { Suspense, useContext } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Loading from "./components/common/loading";
 import Header from "./components/ui/Header";
 import HomePage from "./pages/HomePage";
@@ -20,32 +19,59 @@ function App() {
     return (
       <Route
         key={route.key}
-        exact={route.exact}
-        component={route.Component}
+        // exact={route.exact}
+        element={<route.Component />}
         path={route.url}
       />
     );
   };
 
-  const _routes = routes.map((r) => renderRoute(r));
+  const _routes = routes
+    .map((r) => renderRoute(r))
+    .reduce((result: any[], route) => {
+      if (!route) {
+        return result;
+      }
+      if (Array.isArray(route)) {
+        return [...result, ...route.filter(Boolean)];
+      }
+
+      result.push(route);
+
+      return result;
+    }, []);
 
   return (
-    <Layout>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <Header />
-      <div style={{ float: "left" }}>{"Home" + ">" + "Edit My Profile"}</div>
-      <SiderComponent />
-      <Layout className="ml-200">
-        <Layout.Content>
-          <Suspense fallback={<Loading />}>
-            {/* <Switch>
-              <Route exact path="/" component={HomePage} />
-              {_routes}
-              <Route component={Exception} />
-            </Switch> */}
-          </Suspense>
-        </Layout.Content>
-      </Layout>
-    </Layout>
+
+      <div
+        style={{
+          width: "85%",
+        }}
+      >
+        <Layout style={{ display: "flex" }}>
+          <SiderComponent />
+          <Layout>
+            <Layout.Content>
+              <Suspense fallback={<Loading />}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  {_routes}
+                  <Route element={<Exception />} />
+                </Routes>
+              </Suspense>
+            </Layout.Content>
+          </Layout>
+        </Layout>
+      </div>
+    </div>
   );
 }
 

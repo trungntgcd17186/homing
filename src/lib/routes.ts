@@ -2,6 +2,8 @@ import Profile from "../pages/Profile";
 import Password from "../pages/Password";
 import Notification from "../pages/Notification";
 import Communications from "../pages/Communications";
+import MyVideos from "../pages/MyVideos";
+import MyArticles from "../pages/MyArticles";
 
 export type RouteProps = {
   key: string;
@@ -16,7 +18,7 @@ export type RouteProps = {
 export let routes = [
   {
     key: "1",
-    title: "Profile",
+    title: "Edit Profile",
     url: "/home/profile",
     exact: true,
     Component: Profile,
@@ -42,19 +44,20 @@ export let routes = [
     exact: true,
     Component: Communications,
   },
+
   {
     key: "5",
     title: "My videos",
     url: "/home/myvideos",
     exact: true,
-    Component: Profile,
+    Component: MyVideos,
   },
   {
     key: "6",
     title: "My Articles",
-    url: "home/myarticles",
+    url: "/home/myarticles",
     exact: true,
-    Component: Profile,
+    Component: MyArticles,
   },
 ];
 

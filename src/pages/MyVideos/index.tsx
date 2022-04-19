@@ -1,5 +1,6 @@
 import React from "react";
+import "./index.css";
 
 export default function MyVideos() {
-  return <div>MyVideos</div>;
+  return <div className="container">MyVideos</div>;
 }

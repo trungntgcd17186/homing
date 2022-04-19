@@ -1,5 +1,6 @@
 import React from "react";
+import "./index.css";
 
 export default function Notification() {
-  return <div>Notification</div>;
+  return <div className="container">Notification</div>;
 }

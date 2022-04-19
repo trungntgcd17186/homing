@@ -1,5 +1,17 @@
 import React from "react";
+import "./index.css";
 
-export default function Profile() {
-  return <div>Profile</div>;
+function Profile() {
+  return (
+    <div className="container">
+      Edit Profile
+      <div>asdkasd</div>
+      <div>asdkasd</div>
+      <div>asdkasd</div>
+      <div>asdkasd</div>
+      <div>asdkasd</div>
+    </div>
+  );
 }
+
+export default Profile;

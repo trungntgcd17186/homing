@@ -1,5 +1,6 @@
 import React from "react";
+import "./index.css";
 
 export default function Communications() {
-  return <div>Communications</div>;
+  return <div className="container">Communications</div>;
 }
