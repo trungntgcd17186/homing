@@ -159,3 +159,8 @@
   color: #484848;
   margin-left: 7px;
 }
+
+.ant-menu-item-selected {
+  color: #8551db;
+  font-weight: 550;
+}

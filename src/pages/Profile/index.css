@@ -1,4 +1,94 @@
 .container {
   padding-top: 52px;
   padding-left: 52px;
+  width: 100%;
+}
+
+.content-container {
+  display: flex;
+  width: 88%;
+}
+
+.title-page {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #484848;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-name {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+  width: 108px;
+}
+
+.information {
+  margin-left: 32px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.add-phonenumber {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 14px;
+  line-height: 20px;
+  color: #8551db;
+}
+
+.paragraph {
+  height: 120px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.line {
+  margin-left: 14px;
+}
+
+.social-media-container {
+  margin-top: -7px;
+}
+
+.avatar-container {
+  width: 120px;
+  height: 120px;
+}
+
+.btn-container {
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
+  margin-top: -5px;
+
+  color: #8551db;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ant-modal-content {
+  margin-top: -500px;
 }
