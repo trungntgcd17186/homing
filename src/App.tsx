@@ -9,6 +9,8 @@ import { Routes, Route } from "react-router-dom";
 import Loading from "./components/common/loading";
 import Header from "./components/ui/Header";
 import HomePage from "./pages/HomePage";
+import "antd/dist/antd.css";
+import "@fontsource/poppins";
 
 function App() {
   const renderRoute = (route: RouteProps) => {
@@ -56,9 +58,9 @@ function App() {
           width: "85%",
         }}
       >
-        <Layout style={{ display: "flex" }}>
+        <div style={{ display: "flex" }}>
           <SiderComponent />
-          <Layout>
+          <div>
             <Layout.Content>
               <Suspense fallback={<Loading />}>
                 <Routes>
@@ -68,8 +70,8 @@ function App() {
                 </Routes>
               </Suspense>
             </Layout.Content>
-          </Layout>
-        </Layout>
+          </div>
+        </div>
       </div>
     </div>
   );

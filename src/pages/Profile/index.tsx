@@ -9,6 +9,7 @@ import Pinterest from "../../image/Pinterest.svg";
 import Twitter from "../../image/Twitter.svg";
 import Avatar from "../../image/UploadAvatar.svg";
 import "./index.css";
+import { Modal, Button } from "antd";
 
 const getSrcFromFile = (file: any) => {
   return new Promise((resolve) => {
@@ -43,11 +44,30 @@ function Profile() {
     }
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    console.log("object");
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className="container">
       <div className="flex">
         <p className="title-page">Edit Profile</p>
-        <img src={Edit} alt="icon" style={{ marginLeft: "16px" }} />
+        <img
+          src={Edit}
+          alt="icon"
+          style={{ marginLeft: "16px", marginTop: "-20px" }}
+        />
       </div>
 
       <div className="content-container">
@@ -91,36 +111,42 @@ function Profile() {
               <div className="flex">
                 <img width="13px" src={Pinterest} alt="icon" />
                 <img style={{ marginLeft: "17px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px" }}>
+                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
                   plus.google.com/hdsfdjkshfd
                 </p>
               </div>
               <div className="flex">
                 <img width="9px" src={Facebook} alt="icon" />
                 <img style={{ marginLeft: "21px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px" }}>
+                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
                   plus.google.com/hdsfdjkshfd
                 </p>
               </div>
               <div className="flex">
                 <img width="16px" src={Instagram} alt="icon" />
                 <img style={{ marginLeft: "14px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px" }}>
+                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
                   plus.google.com/hdsfdjkshfd
                 </p>
               </div>
             </div>
           </div>
           <div className="avatar-container">
-            <img src={Avatar} alt="" />
-            <div className="btn-container">
-              <p>Change</p>
-              <p>Delete</p>
-            </div>
+            <ImgCrop grid rotate>
+              <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+              >
+                {fileList.length < 2 && "Change"}
+              </Upload>
+            </ImgCrop>
           </div>
         </div>
       </div>
-      <div style={{ width: "90%" }}>
+      <div style={{ width: "100%" }}>
         <p className="items-name">About me:</p>
         <p className="paragraph">
           Lorem: ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -135,18 +161,6 @@ function Profile() {
           amet, consetetur sadipscin.
         </p>
       </div>
-
-      <ImgCrop grid rotate>
-        <Upload
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          listType="picture-card"
-          fileList={fileList}
-          onChange={onChange}
-          onPreview={onPreview}
-        >
-          {fileList.length < 3 && "+ Upload"}
-        </Upload>
-      </ImgCrop>
     </div>
   );
 }

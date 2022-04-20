@@ -6,7 +6,7 @@
 
 .content-container {
   display: flex;
-  width: 88%;
+  width: 95%;
 }
 
 .title-page {
@@ -30,7 +30,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #484848;
-  width: 108px;
+  width: 140px;
 }
 
 .information {
@@ -60,6 +60,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #484848;
+  width: 95%;
 }
 
 .line {
@@ -67,7 +68,18 @@
 }
 
 .social-media-container {
-  margin-top: -7px;
+}
+/* .ant-upload-list-item-name,
+.ant-upload-text-icon,
+.ant-upload-list-item-card-actions {
+  display: none !important;
+} */
+
+.ant-upload {
+  border: none !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .avatar-container {
@@ -79,7 +91,7 @@
   display: flex;
   width: 120px;
   justify-content: space-between;
-  margin-top: -5px;
+  margin-top: 9px;
 
   color: #8551db;
   font-family: "Poppins";
@@ -89,6 +101,11 @@
   line-height: 20px;
 }
 
-.ant-modal-content {
-  margin-top: -500px;
+.ant-upload-list-item {
+  border: none !important;
+}
+
+.ant-upload-list-picture-card-container {
+  width: 120px !important;
+  height: 120px !important;
 }

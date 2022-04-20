@@ -2,3 +2,35 @@
   padding-top: 52px;
   padding-left: 52px;
 }
+
+.title-page {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #484848;
+}
+
+.after::after {
+  display: inline-block;
+  margin-right: 4px;
+  color: #ff4d4f;
+  font-size: 11px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: "*";
+}
+
+.current-password {
+  margin-top: 32px;
+}
+
+.description {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9a9fa9;
+}

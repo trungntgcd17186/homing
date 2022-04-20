@@ -23,7 +23,9 @@ export default function Header() {
           <img src={Homing} alt="bird" />
         </div>
 
-        <Input className="input-icons" placeholder="Add dress, City, Zip" />
+        <div className="input-icons">
+          <Input placeholder="Add dress, City, Zip" />
+        </div>
         <img style={{ marginLeft: "-30px" }} src={SearchIcon} alt="icon" />
 
         <img style={{ marginLeft: "30px" }} src={path573} alt="icon" />

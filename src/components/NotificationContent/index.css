@@ -1,22 +1,24 @@
-.container {
-  padding-top: 52px;
-  padding-left: 52px;
-}
-
-.title-page {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 28px;
-  color: #484848;
-}
-
-.description {
+.mode {
+  margin-left: 17px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 20px;
+  color: #484848;
+}
+.mode-notification {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.color1 {
+  color: #484848;
+}
+
+.color2 {
   color: #9a9fa9;
 }

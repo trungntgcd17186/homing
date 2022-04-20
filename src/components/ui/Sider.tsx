@@ -22,23 +22,29 @@ export default function SiderComponent(props: Props) {
     }
   };
 
-  console.log(context.routeKey);
-
   const renderMenuItem = (route: RouteProps, index: any) => {
-    return (
+    return index === 4 ? (
+      <>
+        <div style={{ marginLeft: "24px" }}>
+          <p className="my-media">My Media</p>
+        </div>
+        <Menu.Item
+          key={route.key}
+          disabled={route.disabled}
+          onClick={handleTo(context, route.key, route.url)}
+          className="menu-items"
+        >
+          {route.title}
+        </Menu.Item>
+      </>
+    ) : (
       <Menu.Item
         key={route.key}
         disabled={route.disabled}
         onClick={handleTo(context, route.key, route.url)}
         className="menu-items"
       >
-        {index === 4 ? (
-          <div>
-            <p className="my-media">My Media </p> {route.title}
-          </div>
-        ) : (
-          route.title
-        )}
+        {route.title}
       </Menu.Item>
     );
   };
@@ -57,7 +63,7 @@ export default function SiderComponent(props: Props) {
         <p className="personal">Personal</p>
         <Menu
           className="menu"
-          theme="dark"
+          theme="light"
           mode="inline"
           selectedKeys={[`${context.routeKey}`]}
         >
