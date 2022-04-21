@@ -49,6 +49,9 @@
   font-size: 14px;
   line-height: 20px;
   color: #8551db;
+}
+
+.mgl32 {
   margin-left: 32px;
 }
 
@@ -60,7 +63,11 @@
   font-size: 14px;
   line-height: 20px;
   color: #484848;
-  width: 95%;
+  width: 860px;
+}
+
+.mgr {
+  margin-right: 300px;
 }
 
 .line {
@@ -69,11 +76,6 @@
 
 .social-media-container {
 }
-/* .ant-upload-list-item-name,
-.ant-upload-text-icon,
-.ant-upload-list-item-card-actions {
-  display: none !important;
-} */
 
 .ant-upload {
   border: none !important;
@@ -85,7 +87,7 @@
 .avatar-container {
   width: 120px;
   height: 120px;
-  margin-left: 100px;
+  margin-left: -120px;
 }
 
 .btn-container {
@@ -119,7 +121,7 @@
 }
 
 .form-social {
-  width: 435px !important;
+  width: 540px !important;
   height: 32px;
   display: flex;
   flex-direction: row-reverse;

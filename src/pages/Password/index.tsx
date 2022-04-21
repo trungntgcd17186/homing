@@ -35,8 +35,8 @@ export default function Password() {
             name="currentPassword"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <div>
-              <label className="after ">Current Password:</label>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label className="after ">Current Password: </label>
               <Input
                 style={{ marginTop: "12px", width: "400px", height: "32px" }}
               />
@@ -48,7 +48,7 @@ export default function Password() {
             name="newPassword"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <label className="after">New password: </label>
               <Input.Password
                 style={{ marginTop: "12px", width: "400px", height: "32px" }}
@@ -61,7 +61,7 @@ export default function Password() {
             name="confirmPassword:"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <label className="after">Confirm new password: </label>
               <Input.Password
                 style={{ marginTop: "12px", width: "400px", height: "32px" }}

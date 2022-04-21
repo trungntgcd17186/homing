@@ -8,13 +8,11 @@ import Twitter from "../../image/Twitter.svg";
 import Vimeo from "../../image/Vimeo.svg";
 import In from "../../image/In.svg";
 
-import { $getRoot, $getSelection } from "lexical";
-import LexicalComposer from "@lexical/react/LexicalComposer";
-import LexicalPlainTextPlugin from "@lexical/react/LexicalPlainTextPlugin";
-import LexicalContentEditable from "@lexical/react/LexicalContentEditable";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import LexicalOnChangePlugin from "@lexical/react/LexicalOnChangePlugin";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import "./style.css";
+import Editor from "./Editor";
+
+import { db } from "../firebaseConfig";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 interface IProp {
   disabled: boolean;
@@ -23,6 +21,48 @@ interface IProp {
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const usersCollectionRef = collection(db, "users");
+  const [user, setUser] = useState<{
+    name: string;
+    email: string;
+    phoneNumber: number;
+    license: number;
+    experience: string;
+    languages: string;
+    location: string;
+    socialMedia: any;
+    aboutMe: string;
+  }>({
+    name: "",
+    email: "",
+    phoneNumber: 0,
+    license: 0,
+    experience: "",
+    languages: "",
+    location: "",
+    socialMedia: {},
+    aboutMe: "",
+  });
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    const q = query(
+      usersCollectionRef,
+      where("id", "==", " t1Ox77TWQibrKfEt9D8J")
+    );
+
+    const data: { docs: any[] } = await getDocs(q);
+
+    const listUser = data.docs.map((doc: any) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    setUser(listUser[0]);
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -36,68 +76,22 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     setIsModalVisible(false);
   };
 
-  const theme = {
-    // Theme styling goes here
-  };
-
-  // When the editor changes, you can get notified via the
-  // LexicalOnChangePlugin!
-  function onChangeText(editorState: any) {
-    editorState.read(() => {
-      // Read the contents of the EditorState here.
-      const root = $getRoot();
-      const selection = $getSelection();
-
-      console.log(root, selection);
-    });
-  }
-
-  // Lexical React plugins are React components, which makes them
-  // highly composable. Furthermore, you can lazy load plugins if
-  // desired, so you don't pay the cost for plugins until you
-  // actually use them.
-  function MyCustomAutoFocusPlugin() {
-    const [editor] = useLexicalComposerContext();
-
-    useEffect(() => {
-      // Focus the editor when the effect fires!
-      editor.focus();
-    }, [editor]);
-
-    return null;
-  }
-
-  // Catch any errors that occur during Lexical updates and log them
-  // or throw them as needed. If you don't throw them, Lexical will
-  // try to recover gracefully without losing user data.
-  function onError(error: any) {
-    console.error(error);
-  }
-
-  const initialConfig = {
-    theme,
-    onError,
-  };
-
-  function Editor() {
-    return (
-      <LexicalComposer initialConfig={initialConfig}>
-        <LexicalPlainTextPlugin
-          contentEditable={<LexicalContentEditable />}
-          placeholder={<div>Enter some text...</div>}
-        />
-        <LexicalOnChangePlugin onChange={onChangeText} />
-        <HistoryPlugin />
-        <MyCustomAutoFocusPlugin />
-      </LexicalComposer>
-    );
-  }
+  console.log(user.aboutMe);
 
   return disabled ? (
-    <div className="information">
+    <div className="information mgr">
       <Form
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={{
+          name: user.name,
+          email: user.email,
+          license: user.license,
+          experience: user.experience,
+          languages: user.languages,
+          location: user.location,
+          socialMedia: user.socialMedia,
+          aboutMe: user.aboutMe,
+        }}
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -120,7 +114,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
 
         <div className="flex">
           <p style={{ marginLeft: "3px" }}>Phone number:</p>
-          <p className="add-phonenumber" onClick={showModal}>
+          <p className="add-phonenumber mgl32" onClick={showModal}>
             Add your phone number
           </p>
         </div>
@@ -264,8 +258,14 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
           </div>
         </Form.Item>
 
-        <p className="items-name">About me:</p>
-        <Editor />
+        <Form.Item
+          label=""
+          name="aboutMe"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <p className="items-name">About me:</p>
+          <Editor />
+        </Form.Item>
 
         <div
           style={{
