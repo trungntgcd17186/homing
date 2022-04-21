@@ -20,18 +20,7 @@
 }
 
 .input-icons > Input {
-  height: 32px;
-  width: 384px;
   border-radius: 33px;
-
-  margin-left: 37px;
-  background: #ffffff;
-  box-sizing: border-box;
-
-  border-radius: 33px;
-  border: 1px solid #dde1e9;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .search-icon {

@@ -24,11 +24,24 @@ export default function Header() {
         </div>
 
         <div className="input-icons">
-          <Input placeholder="Add dress, City, Zip" />
+          <Input
+            style={{
+              height: "32px",
+              width: "384px",
+              borderRadius: "33px",
+              marginLeft: "37px",
+              background: "#ffffff",
+              boxSizing: "border-box",
+              border: "1px solid #dde1e9",
+              paddingLeft: "15px",
+              paddingRight: "15px",
+            }}
+            suffix={<img src={SearchIcon} alt="icon" />}
+            placeholder="Add dress, City, Zip"
+          />
         </div>
-        <img style={{ marginLeft: "-30px" }} src={SearchIcon} alt="icon" />
 
-        <img style={{ marginLeft: "30px" }} src={path573} alt="icon" />
+        <img style={{ marginLeft: "16px" }} src={path573} alt="icon" />
         <img
           style={{ marginTop: "2px", marginLeft: "16px" }}
           src={TargetIcon}

@@ -55,12 +55,18 @@ function App() {
 
       <div
         style={{
-          width: "85%",
+          width: "100%",
         }}
       >
-        <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
           <SiderComponent />
-          <div>
+          <div style={{ width: "60%" }}>
             <Layout.Content>
               <Suspense fallback={<Loading />}>
                 <Routes>

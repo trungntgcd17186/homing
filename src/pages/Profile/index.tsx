@@ -1,15 +1,13 @@
-import { Upload } from "antd";
+import { Input, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Edit from "../../image/Edit.svg";
-import Facebook from "../../image/Facebook.svg";
-import Instagram from "../../image/Instagram.svg";
-import Line from "../../image/LineSocialMedia.svg";
-import Pinterest from "../../image/Pinterest.svg";
-import Twitter from "../../image/Twitter.svg";
+
 import Avatar from "../../image/UploadAvatar.svg";
 import "./index.css";
 import { Modal, Button } from "antd";
+import ProfileContent from "../../components/ProfileContent";
+import ProfileEdit from "../../components/ProfileEdit";
 
 const getSrcFromFile = (file: any) => {
   return new Promise((resolve) => {
@@ -52,11 +50,26 @@ function Profile() {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    console.log("object");
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const [hideComponentContent, setHideComponentContent] = useState(true);
+  const [hideComponentEdit, setHideComponentEdit] = useState(false);
+  const [hideElement, setHideElement] = useState("");
+
+  const handleEditProfile = () => {
+    setHideComponentContent(false);
+    setHideComponentEdit(true);
+    setHideElement("none");
+  };
+
+  const handleSaveProfile = () => {
+    setHideComponentEdit(false);
+    setHideComponentContent(true);
+    setHideElement("");
   };
 
   return (
@@ -67,21 +80,11 @@ function Profile() {
           src={Edit}
           alt="icon"
           style={{ marginLeft: "16px", marginTop: "-20px" }}
+          onClick={handleEditProfile}
         />
       </div>
 
       <div className="content-container">
-        <div className="items-name">
-          <p>Name</p>
-          <p>Email:</p>
-          <p>Phone number:</p>
-          <p>License#:</p>
-          <p>Experience:</p>
-          <p>Languages:</p>
-          <p>Location:</p>
-          <p>Social media:</p>
-        </div>
-
         <div
           style={{
             display: "flex",
@@ -89,54 +92,19 @@ function Profile() {
             width: "100%",
           }}
         >
-          <div className="information">
-            <p>Dean Dircarlo</p>
-            <p>Lisa11123@gmail.com</p>
-            <p className="add-phonenumber">Add your phone number</p>
-            <p>70980980</p>
-            <p>5 Years</p>
-            <p>English, French</p>
-            <p>Orange County, Costa Meta </p>
+          <ProfileContent disabled={hideComponentContent} />
+          <ProfileEdit
+            handleSaveProfile={handleSaveProfile}
+            disabled={hideComponentEdit}
+          />
 
-            <div className="social-media-container">
-              <div className="flex">
-                <img width="16px" src={Twitter} alt="icon" />
-
-                <img style={{ marginLeft: "14px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px" }}>
-                  plus.google.com/hdsfdjkshfd
-                </p>
-              </div>
-
-              <div className="flex">
-                <img width="13px" src={Pinterest} alt="icon" />
-                <img style={{ marginLeft: "17px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
-                  plus.google.com/hdsfdjkshfd
-                </p>
-              </div>
-              <div className="flex">
-                <img width="9px" src={Facebook} alt="icon" />
-                <img style={{ marginLeft: "21px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
-                  plus.google.com/hdsfdjkshfd
-                </p>
-              </div>
-              <div className="flex">
-                <img width="16px" src={Instagram} alt="icon" />
-                <img style={{ marginLeft: "14px" }} src={Line} alt="icon" />
-                <p style={{ marginLeft: "20px", marginTop: "12px" }}>
-                  plus.google.com/hdsfdjkshfd
-                </p>
-              </div>
-            </div>
-          </div>
           <div className="avatar-container">
             <ImgCrop grid rotate>
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
                 fileList={fileList}
+                // showUploadList={false}
                 onChange={onChange}
                 onPreview={onPreview}
               >
@@ -147,8 +115,8 @@ function Profile() {
         </div>
       </div>
       <div style={{ width: "100%" }}>
-        <p className="items-name">About me:</p>
-        <p className="paragraph">
+        <p className={"items-name" + " " + hideElement}>About me:</p>
+        <p className={"paragraph" + " " + hideElement}>
           Lorem: ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
           nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
           sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
@@ -161,6 +129,15 @@ function Profile() {
           amet, consetetur sadipscin.
         </p>
       </div>
+      <Modal
+        title="Add Phone Number"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Fill Your Phone Number</p>
+        <Input />
+      </Modal>
     </div>
   );
 }

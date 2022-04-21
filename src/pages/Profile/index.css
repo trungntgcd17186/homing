@@ -34,7 +34,6 @@
 }
 
 .information {
-  margin-left: 32px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 300;
@@ -50,6 +49,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #8551db;
+  margin-left: 32px;
 }
 
 .paragraph {
@@ -85,6 +85,7 @@
 .avatar-container {
   width: 120px;
   height: 120px;
+  margin-left: 100px;
 }
 
 .btn-container {
@@ -108,4 +109,39 @@
 .ant-upload-list-picture-card-container {
   width: 120px !important;
   height: 120px !important;
+}
+
+.form-input {
+  width: 400px !important;
+  height: 32px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.form-social {
+  width: 435px !important;
+  height: 32px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ant-form-item-required {
+  width: 140px;
+}
+
+.margin12 {
+  margin-top: 12px !important;
+}
+
+.none {
+  display: none;
+}
+
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  content: "" !important;
+}
+
+.suffix-container {
+  padding-right: 20px;
 }
