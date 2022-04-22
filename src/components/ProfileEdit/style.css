@@ -73,8 +73,7 @@ h1 {
   padding: 15px 10px;
   caret-color: #444;
   width: 846px;
-  border: 1px solid #dde1e9;
-  border-top: none;
+  margin-left: -12px;
 }
 
 .editor-placeholder {
@@ -350,9 +349,7 @@ pre::-webkit-scrollbar-thumb {
 .toolbar {
   display: flex;
   margin-bottom: 1px;
-  opacity: 0.8;
   border-radius: 4px;
-  background: #7a93ff;
   padding: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

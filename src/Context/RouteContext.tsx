@@ -9,10 +9,13 @@ const RouteKeyContext = createContext<any>("");
 
 function RouteKeyProvider({ children }: RouteKeyProviderProps) {
   const [routeKey, setRouteKey] = useState("");
+  const [edit, setEdit] = useState(false);
 
   const value = {
     routeKey,
     setRouteKey,
+    setEdit,
+    edit,
   };
   return (
     <RouteKeyContext.Provider value={value}>

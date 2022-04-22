@@ -64,8 +64,11 @@ function Profile() {
   };
 
   const handleSaveProfile = () => {
-    setHideComponentEdit(false);
-    setHideComponentContent(true);
+    //Set time để không bị disconnect submit form từ component con.
+    setTimeout(() => {
+      setHideComponentEdit(false);
+      setHideComponentContent(true);
+    }, 1);
   };
 
   return (

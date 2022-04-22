@@ -1,12 +1,14 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import In from "../../image/In.svg";
+import React, { useContext, useEffect, useState } from "react";
+import { RouteKeyContext } from "../../Context/RouteContext";
+
 import Line from "../../image/LineSocialMedia.svg";
 import { db } from "../firebaseConfig";
 interface IProp {
   disabled: boolean;
 }
 export default function ProfileContent({ disabled }: IProp) {
+  const context = useContext(RouteKeyContext);
   const usersCollectionRef = collection(db, "users");
   const [user, setUser] = useState<{
     name: string;
@@ -32,13 +34,10 @@ export default function ProfileContent({ disabled }: IProp) {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [context.edit]);
 
   const getUsers = async () => {
-    const q = query(
-      usersCollectionRef,
-      where("id", "==", " t1Ox77TWQibrKfEt9D8J")
-    );
+    const q = query(usersCollectionRef);
 
     const data: { docs: any[] } = await getDocs(q);
 
@@ -60,6 +59,9 @@ export default function ProfileContent({ disabled }: IProp) {
     Vimeo: "/static/media/Vimeo.689f47b40b8907537f778ea426b5bd99.svg",
     In: "/static/media/In.dc0ea9ddc9ccc212ac1fe52e7b755064.svg",
   };
+
+  //Xử lý xóa attribute contenteditable gây ra lỗi không click link được.
+  const dataFromTextEditor = user.aboutMe.split("contenteditable").join("");
 
   return disabled ? (
     <div>
@@ -129,9 +131,11 @@ export default function ProfileContent({ disabled }: IProp) {
           </div>
         </div>
       </div>
+
       <div style={{ width: "100%", marginTop: "20px" }}>
         <p className={"items-name"}>About me:</p>
-        <p className={"paragraph"}>{user.aboutMe}</p>
+
+        <div dangerouslySetInnerHTML={{ __html: dataFromTextEditor }} />
       </div>
     </div>
   ) : (

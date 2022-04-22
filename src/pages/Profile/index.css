@@ -49,10 +49,11 @@
   font-size: 14px;
   line-height: 20px;
   color: #8551db;
+  width: 400px;
 }
 
-.mgl32 {
-  margin-left: 32px;
+.mgt {
+  margin-top: 5px;
 }
 
 .paragraph {
@@ -131,6 +132,18 @@
   width: 140px;
 }
 
+.item {
+  width: 540px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .item-social {
+  width: 540px;
+  display: flex;
+  justify-content: space-between;
+} */
 .margin12 {
   margin-top: 12px !important;
 }
@@ -146,4 +159,9 @@
 
 .suffix-container {
   padding-right: 20px;
+}
+
+.ant-form-item-label {
+  width: 140px;
+  text-align: left !important;
 }
