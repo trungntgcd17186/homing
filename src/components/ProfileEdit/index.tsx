@@ -1,27 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
+import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
+import { RouteKeyContext } from "../../Context/RouteContext";
 import Facebook from "../../image/Facebook.svg";
+import In from "../../image/In.svg";
 import Instagram from "../../image/Instagram.svg";
 import Line from "../../image/LineSocialMedia.svg";
 import Pinterest from "../../image/Pinterest.svg";
 import Twitter from "../../image/Twitter.svg";
 import Vimeo from "../../image/Vimeo.svg";
-import In from "../../image/In.svg";
-import { RouteKeyContext } from "../../Context/RouteContext";
-import "./style.css";
-import Editor from "./Editor";
-
 import { db } from "../firebaseConfig";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  doc,
-  setDoc,
-  addDoc,
-  updateDoc,
-} from "firebase/firestore";
+import Editor from "./Editor";
+import "./style.css";
 
 interface IProp {
   disabled: boolean;
@@ -158,7 +148,12 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
           </p>
         </div>
 
-        <Form.Item className="item" label="License#" name="license">
+        <Form.Item
+          className="item"
+          style={{ marginTop: "10px" }}
+          label="License#"
+          name="license"
+        >
           <Input className="form-input" />
         </Form.Item>
 

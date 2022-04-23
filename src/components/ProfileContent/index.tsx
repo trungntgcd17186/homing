@@ -52,12 +52,12 @@ export default function ProfileContent({ disabled }: IProp) {
   const showModal = () => {};
 
   const Icon: any = {
-    Twitter: "/static/media/Twitter.5e3bee320b0235937e011820c5275185.svg",
-    Facebook: "/static/media/Facebook.6e8e1dac00846bcfae2810fc4ea58d24.svg",
-    Pinterest: "/static/media/Pinterest.ba21f25a619aeb5d6b198a45f98a24f5.svg",
-    Instagram: "/static/media/Instagram.e612619e937436d983a26968658674f8.svg",
-    Vimeo: "/static/media/Vimeo.689f47b40b8907537f778ea426b5bd99.svg",
-    In: "/static/media/In.dc0ea9ddc9ccc212ac1fe52e7b755064.svg",
+    Twitter: "/static/media/Twitter.b5e2a5ef6f07796d5a4fce77bb3a01f4.svg",
+    Facebook: "/static/media/Facebook.4eb940287a5145d16f1dd20380022f80.svg",
+    Pinterest: "/static/media/Pinterest.6010af6825fb60cd492793ca646453e3.svg",
+    Instagram: "/static/media/Instagram.04bb7483af5eda8317806d8690b820f2.svg",
+    Vimeo: "/static/media/Vimeo.992606791065f80a8c074dffdd24c2c0.svg",
+    In: "/static/media/In.17e7f2e4703f84216e4c90d385356166.svg",
   };
 
   //Xử lý xóa attribute contenteditable gây ra lỗi không click link được.
