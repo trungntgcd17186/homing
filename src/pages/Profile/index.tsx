@@ -1,8 +1,8 @@
-import { Input, Upload } from "antd";
+import { Input, message, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import React, { useState, useEffect } from "react";
 import Edit from "../../image/Edit.svg";
-
+import { SmileOutlined } from "@ant-design/icons";
 import Avatar from "../../image/UploadAvatar.svg";
 import "./index.css";
 import { Modal, Button } from "antd";
@@ -18,18 +18,26 @@ const getSrcFromFile = (file: any) => {
 };
 
 function Profile() {
-  const [fileList, setFileList] = useState<any>([
-    {
-      uid: "-1",
-      url: Avatar,
-    },
-  ]);
   const [hideComponentContent, setHideComponentContent] = useState(true);
   const [hideComponentEdit, setHideComponentEdit] = useState(false);
 
-  const onChange = ({ fileList: newFileList }: any) => {
-    setFileList(newFileList);
-  };
+  function getBase64(img: any, callback: any) {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  // function beforeUpload(file: any) {
+  //   const isJPG = file.type === "image/jpeg";
+  //   if (!isJPG) {
+  //     message.error("You can only upload JPG file!");
+  //   }
+  //   const isLt2M = file.size / 1024 / 1024 < 2;
+  //   if (!isLt2M) {
+  //     message.error("Image must smaller than 2MB!");
+  //   }
+  //   return isJPG && isLt2M;
+  // }
 
   const onPreview = async (file: any) => {
     const src = file.url || (await getSrcFromFile(file));
@@ -42,6 +50,19 @@ function Profile() {
     } else {
       window.location.href = src;
     }
+  };
+
+  const [img, setImg] = useState("");
+
+  const handleChange = (info: any) => {
+    if (info.file.status === "done") {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, (imageUrl: any) => setImg(imageUrl));
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setImg("");
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -96,14 +117,30 @@ function Profile() {
       <div className="avatar-container">
         <ImgCrop shape="round" grid>
           <Upload
+            className="avatar-uploader"
+            name="avatar"
+            showUploadList={false}
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            listType="picture-card"
-            fileList={fileList}
-            // showUploadList={false}
-            onChange={onChange}
+            onChange={handleChange}
             onPreview={onPreview}
           >
-            {fileList.length < 2 && "Change"}
+            {img ? (
+              <>
+                <img
+                  src={img}
+                  alt=""
+                  style={{ borderRadius: "50%", width: "150px" }}
+                  className="avatar"
+                />
+                <p>Change</p>
+                <p onClick={handleDeleteImage}>Delete</p>
+              </>
+            ) : (
+              <>
+                <p>Change</p>
+                <p onClick={handleDeleteImage}>Delete</p>
+              </>
+            )}
           </Upload>
         </ImgCrop>
       </div>
