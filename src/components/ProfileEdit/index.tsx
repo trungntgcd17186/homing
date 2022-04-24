@@ -1,4 +1,5 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, Upload } from "antd";
+import ImgCrop from "antd-img-crop";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { RouteKeyContext } from "../../Context/RouteContext";
@@ -17,6 +18,14 @@ interface IProp {
   disabled: boolean;
   handleSaveProfile: any;
 }
+
+const getSrcFromFile = (file: any) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file.originFileObj);
+    reader.onload = () => resolve(reader.result);
+  });
+};
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const context = useContext(RouteKeyContext);
@@ -81,7 +90,11 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   };
 
   const onFinish = async (values: any) => {
-    console.log("Success:", { ...values, aboutMe: message });
+    console.log("Success:", {
+      ...values,
+      aboutMe: message,
+      avatar: context.img,
+    });
     // Add a new document in collection "cities"
     try {
       const userDoc = doc(db, "users", "1RljEtbnk0BcXx2oq3ws");
@@ -89,6 +102,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
         ...values,
         aboutMe: message,
         socialMedia: socialObject,
+        avatar: context.img,
       });
       console.log("Document written");
 
@@ -106,8 +120,40 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     setSocialObject({ ...socialObject, [key]: e.target.value });
   };
 
+  function getBase64(img: any, callback: any) {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  const onPreview = async (file: any) => {
+    const src = file.url || (await getSrcFromFile(file));
+    const imgWindow = window.open(src);
+
+    if (imgWindow) {
+      const image = new Image();
+      image.src = src;
+      imgWindow.document.write(image.outerHTML);
+    } else {
+      window.location.href = src;
+    }
+  };
+
+  const handleChange = (info: any) => {
+    if (info.file.status === "done") {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, (imageUrl: any) =>
+        context.setImg(imageUrl)
+      );
+    }
+  };
+
+  const handleDeleteImage = () => {
+    context.setImg("");
+  };
+
   return disabled ? (
-    <div className="information mgr">
+    <div className="information mgr flex">
       <Form
         name="basic"
         initialValues={{
@@ -330,6 +376,46 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
         <p>Fill Your Phone Number</p>
         <Input />
       </Modal>
+
+      <div style={{ marginLeft: "100px" }}>
+        <ImgCrop shape="round" grid>
+          <Upload
+            className="avatar-uploader"
+            name="avatar"
+            showUploadList={false}
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            onChange={handleChange}
+            onPreview={onPreview}
+          >
+            {context.img ? (
+              <>
+                <img
+                  src={context.img}
+                  alt=""
+                  style={{ borderRadius: "50%", width: "120px" }}
+                  className="avatar"
+                />
+                <div className="flex" style={{ color: "#8551DB" }}>
+                  <p>Change</p>
+                  <p style={{ marginLeft: "28px" }} onClick={handleDeleteImage}>
+                    Delete
+                  </p>
+                </div>
+              </>
+            ) : (
+              <div
+                className="flex"
+                style={{ color: "#8551DB", marginTop: "120px" }}
+              >
+                <p>Change</p>
+                <p style={{ marginLeft: "28px" }} onClick={handleDeleteImage}>
+                  Delete
+                </p>
+              </div>
+            )}
+          </Upload>
+        </ImgCrop>
+      </div>
     </div>
   ) : (
     <div></div>

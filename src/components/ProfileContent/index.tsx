@@ -3,6 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { RouteKeyContext } from "../../Context/RouteContext";
 
 import Line from "../../image/LineSocialMedia.svg";
+import Twitter from "../../assets/image/Twitter.svg";
+import Facebook from "../../assets/image/Facebook.svg";
+import Pinterest from "../../assets/image/Pinterest.svg";
+import Instagram from "../../assets/image/Instagram.svg";
+import Vimeo from "../../assets/image/Vimeo.svg";
+import In from "../../assets/image/In.svg";
+
 import { db } from "../firebaseConfig";
 interface IProp {
   disabled: boolean;
@@ -52,12 +59,12 @@ export default function ProfileContent({ disabled }: IProp) {
   const showModal = () => {};
 
   const Icon: any = {
-    Twitter: "/static/media/Twitter.b5e2a5ef6f07796d5a4fce77bb3a01f4.svg",
-    Facebook: "/static/media/Facebook.4eb940287a5145d16f1dd20380022f80.svg",
-    Pinterest: "/static/media/Pinterest.6010af6825fb60cd492793ca646453e3.svg",
-    Instagram: "/static/media/Instagram.04bb7483af5eda8317806d8690b820f2.svg",
-    Vimeo: "/static/media/Vimeo.992606791065f80a8c074dffdd24c2c0.svg",
-    In: "/static/media/In.17e7f2e4703f84216e4c90d385356166.svg",
+    Twitter: Twitter,
+    Facebook: Facebook,
+    Pinterest: Pinterest,
+    Instagram: Instagram,
+    Vimeo: Vimeo,
+    In: In,
   };
 
   //Xử lý xóa attribute contenteditable gây ra lỗi không click link được.
