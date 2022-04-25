@@ -2,3 +2,90 @@
   padding-top: 52px;
   padding-left: 52px;
 }
+
+.intro-video {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #484848;
+  margin-top: 28px;
+}
+
+.description-intro {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.drop-video {
+  width: 500px;
+  height: 132px;
+  margin-top: 20px;
+}
+
+.upload-url {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-url-container {
+  margin-top: 20px;
+}
+
+.all-video-container {
+  margin-top: 28px;
+}
+
+.type-video {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.video-content {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.mgt-16 {
+  margin-top: 16px;
+}
+
+.mgt-18 {
+  margin-top: 18px;
+}
+
+.add-video-btn {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #8551db;
+  margin-left: 12px;
+}

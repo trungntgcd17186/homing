@@ -8309,6 +8309,11 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-random-image@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-random-image/-/react-random-image-1.0.3.tgz#60b80c85e55e08247cd66748d2dc514991ed0375"
+  integrity sha512-P648VxgIiPo1bMTfCgDkbmyLMRRD7ETkZdWs/U42Wh8FeO/zCsC3wwcTkE+E9e3x7jqOZDz6QEaDWLdgTsMuhw==
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"

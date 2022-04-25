@@ -52,6 +52,7 @@ const editorConfig: any = {
 
 export default function Editor({ parentCallback }: IProps) {
   const [data, setData] = useState<any>("");
+
   const sendData = () => {
     parentCallback(data);
   };
@@ -60,6 +61,8 @@ export default function Editor({ parentCallback }: IProps) {
     setData(editor.getRootElement().outerHTML);
     sendData();
   }
+
+  localStorage.setItem("default", JSON.stringify("jsdkhfsdkjh"));
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
@@ -67,6 +70,7 @@ export default function Editor({ parentCallback }: IProps) {
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
+            // initialEditorState={state}
             placeholder={<Placeholder />}
           />
           <LexicalOnChangePlugin onChange={handleChange} />

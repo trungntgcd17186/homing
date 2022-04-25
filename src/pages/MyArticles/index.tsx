@@ -1,10 +1,15 @@
-import { Button, Input, Modal } from "antd";
+import { Button, Carousel, Form, Input, Modal } from "antd";
+import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
+import { db } from "../../components/firebaseConfig";
+import MyArticlesContent from "../../components/MyArticlesContent/MyArticlesContent";
 import Editor from "../../components/ProfileEdit/Editor";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import "./index.css";
 
 export default function MyArticles() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [message, setMessage] = useState("");
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -18,7 +23,32 @@ export default function MyArticles() {
     setIsModalVisible(false);
   };
 
-  const callbackFunction = () => {};
+  const callbackFunction = (childData: string) => {
+    setMessage(childData);
+  };
+
+  const onFinish = async (values: { title: string; content: string }) => {
+    console.log("Success:", {
+      ...values,
+    });
+    // Add a new document in collection "cities"
+    try {
+      const docRef = await addDoc(collection(db, "content"), {
+        ...values,
+        content: message,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const onFinishFailed = (
+    errorInfo: ValidateErrorEntity<{ title: string; content: string }>
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div className="container">
       <div>
@@ -48,7 +78,7 @@ export default function MyArticles() {
       </div>
 
       <div style={{ marginTop: "27px" }}>
-        <p className="title-content">Or upload from a URL</p>
+        <p className="title-content">Or upload new article from a URL</p>
         <Input
           style={{
             marginTop: "12px",
@@ -60,39 +90,90 @@ export default function MyArticles() {
           }}
         />
       </div>
+
+      <div style={{ marginTop: "40px" }}>
+        <div className="component-wrapper">
+          <MyArticlesContent />
+        </div>
+      </div>
       <Modal
         title="Add your content"
         visible={isModalVisible}
         onOk={handleOk}
-        onCancel={handleCancel}
-        cancelButtonProps={{ style: { display: "none" } }}
-        okButtonProps={{
-          style: {
-            height: "36px",
-            width: "140px",
-            background: "#8551DB",
-            border: "1px solid #8551DB",
-            boxSizing: "border-box",
-            borderRadius: "39px",
-          },
-        }}
+        footer={null}
         okText="Save"
         width="40%"
         style={{ display: "flex", justifyContent: "flex-start" }}
       >
-        <p
-          style={{
-            fontFamily: "Poppins",
-            fontStyle: "normal",
-            fontWeight: "600",
-            fontSize: "16px",
-            lineHeight: "24px",
-            color: "#484848",
-          }}
+        <Form
+          name="basic"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          Title 1
-        </p>
-        <Editor parentCallback={callbackFunction} />
+          <Form.Item
+            style={{
+              marginLeft: "24px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            label="Title"
+            name="title"
+          >
+            <Input
+              placeholder="Top tips fors taging your home"
+              style={{
+                fontFamily: "Poppins",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "16px",
+                lineHeight: "24px",
+                color: "#484848",
+              }}
+            />
+          </Form.Item>
+          <div
+            style={{
+              marginLeft: "24px",
+              display: "flex",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Editor parentCallback={callbackFunction} />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              width: "100%",
+              height: "60px",
+              boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.15)",
+            }}
+          >
+            <button
+              onClick={handleOk}
+              type="submit"
+              style={{
+                marginRight: "24px",
+                height: "36px",
+                width: "140px",
+                background: "#8551DB",
+                border: "1px solid #8551DB",
+                boxSizing: "border-box",
+                borderRadius: "39px",
+                color: "#FFFFFF",
+                fontFamily: "Poppins",
+                fontStyle: "normal",
+                fontWeight: "500",
+                fontSize: "14px",
+                lineHeight: "20px",
+              }}
+            >
+              Save
+            </button>
+          </div>
+        </Form>
       </Modal>
     </div>
   );
