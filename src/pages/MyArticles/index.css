@@ -2,3 +2,18 @@
   padding-top: 52px;
   padding-left: 52px;
 }
+
+.title-content {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+}
+
+.ant-modal-footer {
+  height: 60px;
+  width: 100%;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
+}

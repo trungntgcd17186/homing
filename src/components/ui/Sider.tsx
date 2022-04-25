@@ -1,28 +1,37 @@
-import { RouteProps, routes } from "../../lib/routes";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Layout, Menu } from "antd";
-import React, { useContext } from "react";
-import VectorUrl from "../../image/VectorUrl.svg";
+import { Menu } from "antd";
 import { SiderProps } from "antd/lib/layout/Sider";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ListFormat } from "typescript";
+import VectorUrl from "../../assets/image/VectorUrl.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
+import { RouteProps, routes } from "../../lib/routes";
 interface Props extends SiderProps {}
+
+interface IContext {
+  routeKey: string;
+  setRouteKey: any;
+  setEdit: boolean;
+  edit: boolean;
+  setImg: string;
+  img: string;
+}
 
 export default function SiderComponent(props: Props) {
   const context = useContext(RouteKeyContext);
   const navigate = useNavigate();
 
-  const location = useLocation();
+  const handleTo =
+    (context: IContext, key: string, pathname?: string) => () => {
+      if (pathname) {
+        navigate(pathname);
 
-  const handleTo = (context: any, key: string, pathname?: string) => () => {
-    if (pathname) {
-      navigate(pathname);
+        //Xử lý active sibar khi click vào menu sidebar
+        context.setRouteKey(key);
+      }
+    };
 
-      //Xử lý active sibar khi click vào menu sidebar
-      context.setRouteKey(key);
-    }
-  };
-
-  const renderMenuItem = (route: RouteProps, index: any) => {
+  const renderMenuItem = (route: RouteProps, index: number) => {
     return index === 4 ? (
       <>
         <div style={{ marginLeft: "24px" }}>

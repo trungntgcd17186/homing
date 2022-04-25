@@ -1,13 +1,19 @@
 import { Input, Form, Button } from "antd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import React from "react";
-import "./index.css";
 
+import "./index.css";
+interface IPassword {
+  confirmPassword: string;
+  currentPassword: string;
+  newPassword: string;
+}
 export default function Password() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: IPassword) => {
     console.log("Success:", values);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: ValidateErrorEntity<IPassword>) => {
     console.log("Failed:", errorInfo);
   };
 

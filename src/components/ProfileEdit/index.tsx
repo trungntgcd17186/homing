@@ -1,54 +1,35 @@
 import { Button, Form, Input, Modal, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
+import {
+  UploadChangeParam,
+  UploadFile,
+  RcFile,
+} from "antd/lib/upload/interface";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import Facebook from "../../assets/image/Facebook.svg";
+import In from "../../assets/image/In.svg";
+import Instagram from "../../assets/image/Instagram.svg";
+import Line from "../../assets/image/LineSocialMedia.svg";
+import Pinterest from "../../assets/image/Pinterest.svg";
+import Twitter from "../../assets/image/Twitter.svg";
+import Vimeo from "../../assets/image/Vimeo.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
-import Facebook from "../../image/Facebook.svg";
-import In from "../../image/In.svg";
-import Instagram from "../../image/Instagram.svg";
-import Line from "../../image/LineSocialMedia.svg";
-import Pinterest from "../../image/Pinterest.svg";
-import Twitter from "../../image/Twitter.svg";
-import Vimeo from "../../image/Vimeo.svg";
 import { db } from "../firebaseConfig";
 import Editor from "./Editor";
 import "./style.css";
 
 interface IProp {
   disabled: boolean;
-  handleSaveProfile: any;
+  handleSaveProfile: () => void;
 }
-
-const getSrcFromFile = (file: any) => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file.originFileObj);
-    reader.onload = () => resolve(reader.result);
-  });
-};
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const context = useContext(RouteKeyContext);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const usersCollectionRef = collection(db, "users");
-  const [user, setUser] = useState<{
-    name: string;
-    email: string;
-    phoneNumber: number;
-    license: number;
-    experience: string;
-    languages: string;
-    location: string;
-    socialMedia: any;
-    aboutMe: string;
-  }>({
-    name: "",
-    email: "",
-    phoneNumber: 0,
-    license: 0,
-    experience: "",
-    languages: "",
-    location: "",
+  const [user, setUser] = useState<IData>({
     socialMedia: {},
     aboutMe: "",
   });
@@ -64,7 +45,6 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     const q = query(usersCollectionRef);
 
     const data: { docs: any[] } = await getDocs(q);
-
     const listUser = data.docs.map((doc: any) => ({
       ...doc.data(),
       id: doc.id,
@@ -89,7 +69,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     setMessage(childData);
   };
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: IData) => {
     console.log("Success:", {
       ...values,
       aboutMe: message,
@@ -112,37 +92,46 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: ValidateErrorEntity<IData>) => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleChangeInput = (e: any, key: string) => {
+  const handleChangeInput = (
+    e: ChangeEvent<{ value: string }>,
+    key: string
+  ) => {
     setSocialObject({ ...socialObject, [key]: e.target.value });
   };
 
-  function getBase64(img: any, callback: any) {
+  function getBase64(img: RcFile | Blob | undefined, callback: any) {
     const reader = new FileReader();
     reader.addEventListener("load", () => callback(reader.result));
-    reader.readAsDataURL(img);
+    if (img !== undefined) {
+      reader.readAsDataURL(img);
+    }
   }
 
   const onPreview = async (file: any) => {
-    const src = file.url || (await getSrcFromFile(file));
-    const imgWindow = window.open(src);
-
-    if (imgWindow) {
-      const image = new Image();
-      image.src = src;
-      imgWindow.document.write(image.outerHTML);
-    } else {
-      window.location.href = src;
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        console.log(typeof reader);
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
     }
+    const image = new Image();
+    image.src = src;
+
+    const imgWindow: Window | null = window.open(src);
+    if (imgWindow) imgWindow.document.write(image.outerHTML);
   };
 
-  const handleChange = (info: any) => {
+  const handleChange = (info: UploadChangeParam<UploadFile<unknown>>) => {
     if (info.file.status === "done") {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: any) =>
+      getBase64(info.file.originFileObj, (imageUrl: string) =>
         context.setImg(imageUrl)
       );
     }

@@ -1,11 +1,11 @@
 import { Input, Modal } from "antd";
 import React, { useContext, useState } from "react";
+import Avatar from "../../assets/image/Avatar.svg";
+import Edit from "../../assets/image/Edit.svg";
 import ProfileContent from "../../components/ProfileContent";
 import ProfileEdit from "../../components/ProfileEdit";
-import Edit from "../../image/Edit.svg";
-import "./index.css";
 import { RouteKeyContext } from "../../Context/RouteContext";
-import Avatar from "../../assets/image/Avatar.svg";
+import "./index.css";
 
 function Profile() {
   const context = useContext(RouteKeyContext);

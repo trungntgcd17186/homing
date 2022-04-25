@@ -3,7 +3,7 @@ import { Switch } from "antd";
 import "./index.css";
 
 export default function Communications() {
-  function onChange(checked: any) {
+  function onChange(checked: boolean) {
     console.log(`switch to ${checked}`);
   }
   return (

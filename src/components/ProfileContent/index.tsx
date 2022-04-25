@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { RouteKeyContext } from "../../Context/RouteContext";
 
-import Line from "../../image/LineSocialMedia.svg";
+import Line from "../../assets/image/LineSocialMedia.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Facebook from "../../assets/image/Facebook.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
@@ -17,24 +17,7 @@ interface IProp {
 export default function ProfileContent({ disabled }: IProp) {
   const context = useContext(RouteKeyContext);
   const usersCollectionRef = collection(db, "users");
-  const [user, setUser] = useState<{
-    name: string;
-    email: string;
-    phoneNumber: number;
-    license: number;
-    experience: string;
-    languages: string;
-    location: string;
-    socialMedia: any;
-    aboutMe: string;
-  }>({
-    name: "",
-    email: "",
-    phoneNumber: 0,
-    license: 0,
-    experience: "",
-    languages: "",
-    location: "",
+  const [user, setUser] = useState<IData>({
     socialMedia: {},
     aboutMe: "",
   });

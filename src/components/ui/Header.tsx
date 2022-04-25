@@ -1,18 +1,16 @@
 import { Input } from "antd";
 import React from "react";
-import Homing from "../../image/Homing.svg";
-import path573 from "../../image/Path5.svg";
-import vector from "../../image/Vector.png";
-import SearchIcon from "../../image/Search.svg";
-import HomeIcon from "../../image/HomeIcon.svg";
-import MessageIcon from "../../image/MessageIcon.svg";
-import NotificationIcon from "../../image/NotificationIcon.svg";
-import Line from "../../image/Line.svg";
-import Path5 from "../../image/Path5.svg";
-import Avatar from "../../image/Avatar.svg";
-import DropdownIcon from "../../image/DropdownIcon.svg";
-import Dean from "../../image/Dean.svg";
-import TargetIcon from "../../image/TargetIcon.svg";
+import Avatar from "../../assets/image/Avatar.svg";
+import Dean from "../../assets/image/Dean.svg";
+import DropdownIcon from "../../assets/image/DropdownIcon.svg";
+import HomeIcon from "../../assets/image/HomeIcon.svg";
+import Homing from "../../assets/image/Homing.svg";
+import Line from "../../assets/image/Line.svg";
+import MessageIcon from "../../assets/image/MessageIcon.svg";
+import NotificationIcon from "../../assets/image/NotificationIcon.svg";
+import path573 from "../../assets/image/Path5.svg";
+import SearchIcon from "../../assets/image/Search.svg";
+import TargetIcon from "../../assets/image/TargetIcon.svg";
 import "./index.css";
 
 export default function Header() {
