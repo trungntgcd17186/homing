@@ -23,9 +23,44 @@
 }
 
 .drop-video {
-  width: 500px;
+  position: relative;
+  width: 446px;
   height: 132px;
   margin-top: 20px;
+}
+
+.drop-container {
+  position: relative;
+  width: 446px;
+  height: 132px;
+}
+
+.drop-video .pause-upload-btn {
+  position: absolute;
+  top: 28.5%;
+  right: 8%;
+  border: none;
+  cursor: pointer;
+}
+
+.drop-video .delete-upload-btn {
+  position: absolute;
+  top: 27%;
+  right: 3%;
+  border: none;
+  cursor: pointer;
+}
+
+.drop-container .progress {
+  position: absolute;
+  top: 30%;
+  right: 45%;
+}
+
+.drop-container .upload-name {
+  position: absolute;
+  bottom: 15%;
+  right: 25%;
 }
 
 .upload-url {
@@ -47,7 +82,45 @@
 }
 
 .upload-url-container {
-  margin-top: 20px;
+  margin-top: 30px;
+}
+
+.video-container {
+  width: 370px;
+  position: relative;
+}
+
+.container .play-video-btn {
+  position: absolute;
+  top: 5.8%;
+  right: 12%;
+  border: none;
+  cursor: pointer;
+}
+
+.container .delete-video-btn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  border: none;
+  cursor: pointer;
+}
+
+.container .btn:hover {
+  background-color: black;
+}
+
+.video-name {
+  width: 370px;
+  height: 44px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.video-name > p {
+  margin-left: 16px;
 }
 
 .all-video-container {
@@ -88,4 +161,10 @@
   line-height: 20px;
   color: #8551db;
   margin-left: 12px;
+}
+
+.upload-video-by-url .input-video-url {
+  height: 32px;
+  width: 500px;
+  border-radius: 4px;
 }

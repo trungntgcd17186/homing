@@ -35,11 +35,28 @@ export default function MyArticlesContent() {
   };
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <img
-        style={{ cursor: "pointer", width: "50px", height: "50px" }}
+        style={{
+          cursor: "pointer",
+          position: "absolute",
+          top: "20%",
+          left: "-1.4%",
+          zIndex: "999",
+        }}
         src={Prev}
         onClick={() => slider.current.prev()}
+      />
+      <img
+        style={{
+          cursor: "pointer",
+          position: "absolute",
+          zIndex: "999",
+          top: "20%",
+          right: "-1.4%",
+        }}
+        src={Next}
+        onClick={() => slider.current.next()}
       />
       <Carousel
         {...carouselSettings}
@@ -70,11 +87,6 @@ export default function MyArticlesContent() {
           </div>
         ))}
       </Carousel>
-      <img
-        style={{ cursor: "pointer", width: "50px", height: "50px" }}
-        src={Next}
-        onClick={() => slider.current.next()}
-      />
-    </>
+    </div>
   );
 }
