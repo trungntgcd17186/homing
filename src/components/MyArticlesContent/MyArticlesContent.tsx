@@ -32,6 +32,7 @@ export default function MyArticlesContent() {
   const carouselSettings = {
     slidesToShow: 3,
     slidesToScroll: 1,
+    dots: false,
   };
 
   return (

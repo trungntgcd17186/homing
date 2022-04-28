@@ -124,7 +124,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   }
 
   return disabled ? (
-    <div className="information mgr flex">
+    <div className="information flex">
       <Form
         name="basic"
         initialValues={{
@@ -370,6 +370,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
               lineHeight: "20px",
               color: "#8551DB",
             }}
+            onClick={handleSaveProfile}
           >
             Cancel
           </Button>

@@ -39,11 +39,13 @@ export default function Password() {
           <Form.Item
             label=""
             name="currentPassword"
-            rules={[{ required: true, message: "Please input your username!" }]}
+            rules={[
+              { required: true, message: "Please input your old password!" },
+            ]}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <label className="after ">Current Password: </label>
-              <Input
+              <Input.Password
                 style={{ marginTop: "12px", width: "400px", height: "32px" }}
               />
             </div>
@@ -52,7 +54,9 @@ export default function Password() {
           <Form.Item
             label=""
             name="newPassword"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[
+              { required: true, message: "Please input your new password!" },
+            ]}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <label className="after">New password: </label>
@@ -65,7 +69,9 @@ export default function Password() {
           <Form.Item
             label=""
             name="confirmPassword:"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[
+              { required: true, message: "Please input your new password!" },
+            ]}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <label className="after">Confirm new password: </label>

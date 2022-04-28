@@ -88,6 +88,7 @@ export default function AvatarComponent() {
               />
               <p
                 style={{
+                  marginTop: "9px",
                   width: "120px",
                   textAlign: "center",
                   color: "#8551DB",

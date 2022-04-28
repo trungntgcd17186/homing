@@ -11,7 +11,7 @@ import "./index.css";
 function Profile() {
   const [hideComponentContent, setHideComponentContent] = useState(true);
   const [hideComponentEdit, setHideComponentEdit] = useState(false);
-  const [hideAvatar, setHideAvatar] = useState("");
+  const [hideElement, setHideElement] = useState("");
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -30,7 +30,7 @@ function Profile() {
   const handleEditProfile = () => {
     setHideComponentContent(false);
     setHideComponentEdit(true);
-    setHideAvatar("none");
+    setHideElement("none");
   };
 
   const handleSaveProfile = () => {
@@ -38,7 +38,7 @@ function Profile() {
     setTimeout(() => {
       setHideComponentEdit(false);
       setHideComponentContent(true);
-      setHideAvatar("");
+      setHideElement("");
     }, 1);
   };
 
@@ -57,6 +57,7 @@ function Profile() {
               height: "20px",
               width: "20px",
             }}
+            className={hideElement}
             onClick={handleEditProfile}
           />
         </div>

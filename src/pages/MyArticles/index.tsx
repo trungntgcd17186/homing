@@ -53,7 +53,7 @@ export default function MyArticles() {
     <div className="container">
       <div>
         <h1 className="title-page">MyArticles</h1>
-        <p className="description">You don't have any article...</p>
+        {/* <p className="description">You don't have any article...</p> */}
       </div>
 
       <div style={{ marginTop: "32px" }}>

@@ -40,17 +40,17 @@ export default function NotificationContent({
 
           <div>
             <div style={{ display: "flex" }}>
-              <Switch defaultChecked onChange={onChange} />
+              <Switch size="small" defaultChecked onChange={onChange} />
               <p className="mode">Push</p>
             </div>
 
             <div style={{ display: "flex" }}>
-              <Switch defaultChecked onChange={onChange} />
+              <Switch size="small" defaultChecked onChange={onChange} />
               <p className="mode">Email</p>
             </div>
 
             <div style={{ display: "flex" }}>
-              <Switch onChange={onChange} />
+              <Switch size="small" onChange={onChange} />
               <p className="mode">SMS</p>
             </div>
           </div>

@@ -16,14 +16,14 @@ export default function Communications() {
       </div>
 
       <div style={{ marginTop: "28px" }}>
-        <div style={{ display: "flex" }}>
-          <Switch defaultChecked onChange={onChange} />
-          <p style={{ marginLeft: "17px" }}>Email</p>
+        <div style={{ display: "flex", height: "20px" }}>
+          <Switch size="small" defaultChecked onChange={onChange} />
+          <p style={{ marginLeft: "17px", marginTop: "-4px" }}>Email</p>
         </div>
 
         <div style={{ display: "flex", marginTop: "12px" }}>
-          <Switch defaultChecked onChange={onChange} />
-          <p style={{ marginLeft: "17px" }}>Phone</p>
+          <Switch size="small" defaultChecked onChange={onChange} />
+          <p style={{ marginLeft: "17px", marginTop: "-4px" }}>Phone</p>
         </div>
       </div>
     </div>
