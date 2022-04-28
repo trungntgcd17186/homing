@@ -1,8 +1,7 @@
 import { Menu } from "antd";
 import { SiderProps } from "antd/lib/layout/Sider";
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { ListFormat } from "typescript";
+import { useLocation, useNavigate } from "react-router-dom";
 import VectorUrl from "../../assets/image/VectorUrl.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
 import { RouteProps, routes } from "../../lib/routes";
@@ -20,6 +19,9 @@ interface IContext {
 export default function SiderComponent(props: Props) {
   const context = useContext(RouteKeyContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  context.setRouteKey(location.pathname);
 
   const handleTo =
     (context: IContext, key: string, pathname?: string) => () => {
@@ -43,7 +45,7 @@ export default function SiderComponent(props: Props) {
           onClick={handleTo(context, route.key, route.url)}
           className="menu-items"
         >
-          {route.title}
+          <p style={{ marginTop: "12px" }}>{route.title}</p>
         </Menu.Item>
       </>
     ) : (

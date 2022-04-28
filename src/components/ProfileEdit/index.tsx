@@ -1,10 +1,4 @@
-import { Button, Form, Input, Modal, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
-import {
-  UploadChangeParam,
-  UploadFile,
-  RcFile,
-} from "antd/lib/upload/interface";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
@@ -15,6 +9,7 @@ import Line from "../../assets/image/LineSocialMedia.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
+import AllowClearIcon from "../../assets/image/AllowClearIcon.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
 import { db } from "../firebaseConfig";
 import Editor from "./Editor";
@@ -24,6 +19,8 @@ interface IProp {
   disabled: boolean;
   handleSaveProfile: () => void;
 }
+
+const { Option } = Select;
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const context = useContext(RouteKeyContext);
@@ -103,43 +100,28 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     setSocialObject({ ...socialObject, [key]: e.target.value });
   };
 
-  function getBase64(img: RcFile | Blob | undefined, callback: any) {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => callback(reader.result));
-    if (img !== undefined) {
-      reader.readAsDataURL(img);
-    }
+  const childrenLanguages = [
+    <Option key={" Vietnamese"}>Vietnamese</Option>,
+    <Option key={" French"}>French</Option>,
+    <Option key={" Korean"}>Korean</Option>,
+    <Option key={" Thai"}>Thai</Option>,
+    <Option key={" German"}>German</Option>,
+    <Option key={" Spanish"}>Spanish</Option>,
+  ];
+
+  const childrenLocation = [
+    <Option key={" California"}>California</Option>,
+    <Option key={" Michigan"}>Michigan</Option>,
+    <Option key={" Colorado"}>Colorado</Option>,
+    <Option key={" Hawaii"}>Hawaii</Option>,
+    <Option key={" Alaska"}>Alaska</Option>,
+    <Option key={" Florida"}>Florida</Option>,
+    <Option key={" Texas"}>Texas</Option>,
+  ];
+
+  function handleChangeOption(value: any) {
+    console.log(`selected ${value}`);
   }
-
-  const onPreview = async (file: any) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        console.log(typeof reader);
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-
-    const imgWindow: Window | null = window.open(src);
-    if (imgWindow) imgWindow.document.write(image.outerHTML);
-  };
-
-  const handleChange = (info: UploadChangeParam<UploadFile<unknown>>) => {
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: string) =>
-        context.setImg(imageUrl)
-      );
-    }
-  };
-
-  const handleDeleteImage = () => {
-    context.setImg("");
-  };
 
   return disabled ? (
     <div className="information mgr flex">
@@ -165,15 +147,26 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
           name="name"
           rules={[{ required: true, message: "Please input your name!" }]}
         >
-          <Input className="form-input" />
+          <Input
+            className="form-input"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+          />
         </Form.Item>
 
         <Form.Item
           label="Email"
+          className="item"
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input className="form-input" />
+          <Input
+            className="form-input"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+          />
         </Form.Item>
 
         <div className="item flex">
@@ -189,22 +182,51 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
           label="License#"
           name="license"
         >
-          <Input className="form-input" />
+          <Input
+            className="form-input"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+          />
         </Form.Item>
 
-        <Form.Item label="Experience" name="experience">
-          <Input className="form-input" />
+        <Form.Item className="item" label="Experience" name="experience">
+          <Input
+            className="form-input"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            type="number"
+          />
         </Form.Item>
 
-        <Form.Item label="Languages" name="languages">
-          <Input className="form-input" />
+        <Form.Item className="item" label="Languages" name="languages">
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: "100%" }}
+            placeholder="Please select"
+            defaultValue={["a10", "c12"]}
+            onChange={handleChangeOption}
+          >
+            {childrenLanguages}
+          </Select>
         </Form.Item>
 
-        <Form.Item label="Location" name="location">
-          <Input className="form-input" />
+        <Form.Item className="item" label="Location" name="location">
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: "100%" }}
+            placeholder="Please select"
+            defaultValue={["a10", "c12"]}
+            onChange={handleChangeOption}
+          >
+            {childrenLocation}
+          </Select>
         </Form.Item>
 
-        <Form.Item label="Social Media" name="socialMedia">
+        <Form.Item className="item" label="Social Media" name="socialMedia">
           <Input
             defaultValue={user.socialMedia.Twitter}
             onChange={(e) => handleChangeInput(e, "Twitter")}
@@ -218,7 +240,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            className="form-social"
           />
 
           <Input
@@ -234,7 +259,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input margin12"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            className="form-social margin12"
           />
 
           <Input
@@ -250,7 +278,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input margin12"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            className="form-social margin12"
           />
 
           <Input
@@ -266,7 +297,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input margin12"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            className="form-social margin12"
           />
 
           <Input
@@ -282,10 +316,16 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input margin12"
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
+            className="form-social margin12"
           />
 
           <Input
+            allowClear={{
+              clearIcon: <img src={AllowClearIcon} />,
+            }}
             defaultValue={user.socialMedia.In}
             onChange={(e) => handleChangeInput(e, "In")}
             suffix={
@@ -298,7 +338,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
                 />
               </div>
             }
-            className="form-input margin12"
+            className="form-social margin12"
           />
         </Form.Item>
 
@@ -312,6 +352,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "flex-start",
+            marginTop: "40px",
           }}
         >
           <Button
@@ -365,46 +406,6 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
         <p>Fill Your Phone Number</p>
         <Input />
       </Modal>
-
-      <div style={{ marginLeft: "100px" }}>
-        <ImgCrop shape="round" grid>
-          <Upload
-            className="avatar-uploader"
-            name="avatar"
-            showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            onChange={handleChange}
-            onPreview={onPreview}
-          >
-            {context.img ? (
-              <>
-                <img
-                  src={context.img}
-                  alt=""
-                  style={{ borderRadius: "50%", width: "120px" }}
-                  className="avatar"
-                />
-                <div className="flex" style={{ color: "#8551DB" }}>
-                  <p>Change</p>
-                  <p style={{ marginLeft: "28px" }} onClick={handleDeleteImage}>
-                    Delete
-                  </p>
-                </div>
-              </>
-            ) : (
-              <div
-                className="flex"
-                style={{ color: "#8551DB", marginTop: "120px" }}
-              >
-                <p>Change</p>
-                <p style={{ marginLeft: "28px" }} onClick={handleDeleteImage}>
-                  Delete
-                </p>
-              </div>
-            )}
-          </Upload>
-        </ImgCrop>
-      </div>
     </div>
   ) : (
     <div></div>

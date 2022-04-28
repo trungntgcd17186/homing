@@ -1,10 +1,10 @@
-import { Button, Carousel, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { addDoc, collection } from "firebase/firestore";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import React, { useState } from "react";
 import { db } from "../../components/firebaseConfig";
 import MyArticlesContent from "../../components/MyArticlesContent/MyArticlesContent";
 import Editor from "../../components/ProfileEdit/Editor";
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import "./index.css";
 
 export default function MyArticles() {
@@ -100,7 +100,9 @@ export default function MyArticles() {
         title="Add your content"
         visible={isModalVisible}
         onOk={handleOk}
+        onCancel={handleCancel}
         footer={null}
+        closable={true}
         okText="Save"
         width="40%"
         style={{ display: "flex", justifyContent: "flex-start" }}

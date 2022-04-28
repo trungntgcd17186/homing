@@ -100,6 +100,7 @@
   color: #484848;
   margin-left: 32px;
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .my-media {
@@ -115,14 +116,21 @@
 
 .menu-items {
   list-style-type: none;
-  margin-top: 16px;
+  margin-top: 12px !important;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
-  line-height: 20px;
   color: #484848;
   text-align: left;
+  height: auto !important;
+  margin-bottom: 0 !important;
+}
+
+.ant-menu-title-content {
+  display: flex;
+  align-items: center;
+  height: 20px;
 }
 
 .menu {
@@ -152,7 +160,7 @@
 
 .ant-menu-item-selected {
   color: #8551db !important;
-  font-weight: 550;
+  font-weight: 600;
   background-color: #fafaff !important;
 }
 

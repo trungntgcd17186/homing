@@ -204,7 +204,7 @@ export default function MyVideos() {
       <div className="upload-url-container flex-col">
         <label className="upload-url">Or upload from a URL</label>
 
-        <Input style={{ marginTop: "12px", width: "500px", height: "32px" }} />
+        <Input style={{ marginTop: "12px", width: "446px", height: "32px" }} />
       </div>
 
       <div className="all-video-container">
@@ -230,6 +230,7 @@ export default function MyVideos() {
                   <Input
                     placeholder="https://12345678.com"
                     className="input-video-url"
+                    style={{ width: "446px" }}
                   />
                 </Form.Item>
 

@@ -49,6 +49,7 @@ function App() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        paddingBottom: "20px",
       }}
     >
       <Header />

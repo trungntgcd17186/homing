@@ -2,13 +2,13 @@ import { Input, Modal } from "antd";
 import React, { useContext, useState } from "react";
 import Avatar from "../../assets/image/Avatar.svg";
 import Edit from "../../assets/image/Edit.svg";
+import AvatarComponent from "../../components/Avatar";
 import ProfileContent from "../../components/ProfileContent";
 import ProfileEdit from "../../components/ProfileEdit";
 import { RouteKeyContext } from "../../Context/RouteContext";
 import "./index.css";
 
 function Profile() {
-  const context = useContext(RouteKeyContext);
   const [hideComponentContent, setHideComponentContent] = useState(true);
   const [hideComponentEdit, setHideComponentEdit] = useState(false);
   const [hideAvatar, setHideAvatar] = useState("");
@@ -45,12 +45,18 @@ function Profile() {
   return (
     <div className="container flex">
       <div>
-        <div className="flex">
+        <div className="flex" style={{ alignItems: "center" }}>
           <p className="title-page">Edit Profile</p>
           <img
             src={Edit}
             alt="icon"
-            style={{ marginLeft: "16px", marginTop: "-20px" }}
+            style={{
+              marginLeft: "16px",
+
+              cursor: "pointer",
+              height: "20px",
+              width: "20px",
+            }}
             onClick={handleEditProfile}
           />
         </div>
@@ -64,14 +70,7 @@ function Profile() {
         </div>
       </div>
 
-      <div className={"avatar-container" + " " + hideAvatar}>
-        <img
-          style={{ borderRadius: "50%" }}
-          width="120"
-          src={context.img || Avatar}
-          alt="avatar"
-        />
-      </div>
+      <AvatarComponent />
 
       <Modal
         title="Add Phone Number"

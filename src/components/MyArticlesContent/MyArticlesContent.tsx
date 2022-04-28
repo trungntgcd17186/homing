@@ -31,7 +31,7 @@ export default function MyArticlesContent() {
 
   const carouselSettings = {
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
   };
 
   return (
@@ -61,29 +61,30 @@ export default function MyArticlesContent() {
       <Carousel
         {...carouselSettings}
         style={{ height: "295px", width: "847px" }}
-        afterChange={onChange}
+        // afterChange={onChange}
         ref={slider}
-        autoplay
+        //autoplay
       >
         {content.map((item, index) => (
-          <div key={index} className="post-container">
-            <img
-              className="img-content"
-              src={`https://unsplash.it/150/200?image=${Math.floor(
-                Math.random() * 100
-              )}`}
-              alt="random picture"
-            />
-            <p className="modal-title-content">{item.title}</p>
-
-            <div
-              style={{ marginLeft: "12px", fontWeight: "300" }}
-              dangerouslySetInnerHTML={{
-                __html: item.content
-                  .split(`class="editor-input" contenteditable="true"`)
-                  .join(""),
-              }}
-            />
+          <div key={index}>
+            <div className="post-container">
+              <img
+                className="img-content"
+                src={`https://unsplash.it/150/200?image=${Math.floor(
+                  Math.random() * 100
+                )}`}
+                alt="random picture"
+              />
+              <p className="modal-title-content">{item.title}</p>
+              <div
+                style={{ marginLeft: "12px", fontWeight: "300" }}
+                dangerouslySetInnerHTML={{
+                  __html: item.content
+                    .split(`class="editor-input" contenteditable="true"`)
+                    .join(""),
+                }}
+              />
+            </div>
           </div>
         ))}
       </Carousel>

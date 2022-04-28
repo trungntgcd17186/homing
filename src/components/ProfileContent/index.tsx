@@ -107,16 +107,16 @@ export default function ProfileContent({ disabled }: IProp) {
                 </div>
               </div>
             </div>
-            <div>
+            <div style={{ height: "272px", width: "400px" }}>
               <p>{user.name}</p>
               <p>{user.email}</p>
               <p className="add-phonenumber" onClick={showModal}>
                 Add your phone number
               </p>
               <p>{user.license}</p>
-              <p>{user.experience}</p>
-              <p>{user.languages}</p>
-              <p>{user.location}</p>
+              <p>{user.experience + " " + "Years"}</p>
+              <p>{user.languages + ","}</p>
+              <p>{user.location + ","}</p>
             </div>
           </div>
         </div>

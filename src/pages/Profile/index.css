@@ -7,6 +7,7 @@
 .content-container {
   display: flex;
   width: 95%;
+  margin-top: 28px;
 }
 
 .title-page {
@@ -14,7 +15,8 @@
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
-  line-height: 28px;
+  height: 28px;
+  margin-bottom: 0;
   text-transform: capitalize;
   color: #484848;
 }
@@ -45,7 +47,7 @@
 .add-phonenumber {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 550;
+  font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   color: #8551db;
@@ -89,7 +91,8 @@
 .avatar-container {
   width: 120px;
   height: 120px;
-  margin-left: -120px;
+  margin-left: 116px;
+  margin-top: 44px;
 }
 
 .btn-container {
@@ -115,15 +118,13 @@
   height: 120px !important;
 }
 
-.form-input {
+.item .form-input {
   width: 400px !important;
   height: 32px;
-  display: flex;
-  flex-direction: row-reverse;
 }
 
-.form-social {
-  width: 540px !important;
+.item .form-social {
+  width: 400px !important;
   height: 32px;
   display: flex;
   flex-direction: row-reverse;
@@ -140,8 +141,15 @@
   align-items: center;
 }
 
+.item {
+  width: 540px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .margin12 {
-  margin-top: 12px !important;
+  margin-top: 12px;
 }
 
 .none {
@@ -160,4 +168,26 @@
 .ant-form-item-label {
   width: 140px;
   text-align: left !important;
+}
+
+.form-input:hover,
+.form-social:hover {
+  border: 1px solid #7993ff !important;
+}
+
+.form-input:focus {
+  border: 1px solid #ea1111;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 8px rgba(251, 4, 4, 0.963);
+  border-radius: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }

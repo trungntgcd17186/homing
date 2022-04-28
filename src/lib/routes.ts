@@ -17,28 +17,28 @@ export type RouteProps = {
 
 export let routes = [
   {
-    key: "1",
+    key: "/home/profile",
     title: "Edit Profile",
     url: "/home/profile",
     exact: true,
     Component: Profile,
   },
   {
-    key: "2",
+    key: "/home/password",
     title: "Password",
     url: "/home/password",
     exact: true,
     Component: Password,
   },
   {
-    key: "3",
+    key: "/home/notification",
     title: "Notification setting",
     url: "/home/notification",
     exact: true,
     Component: Notification,
   },
   {
-    key: "4",
+    key: "/home/communications",
     title: "Communications",
     url: "/home/communications",
     exact: true,
@@ -46,14 +46,14 @@ export let routes = [
   },
 
   {
-    key: "5",
+    key: "/home/myvideos",
     title: "My videos",
     url: "/home/myvideos",
     exact: true,
     Component: MyVideos,
   },
   {
-    key: "6",
+    key: "/home/myarticles",
     title: "My Articles",
     url: "/home/myarticles",
     exact: true,
