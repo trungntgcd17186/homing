@@ -9,7 +9,11 @@ import React, { useContext } from "react";
 import Avatar from "../../assets/image/Avatar.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
 
-export default function AvatarComponent() {
+interface IProps {
+  hideComponentEdit: boolean;
+}
+
+export default function AvatarComponent({ hideComponentEdit }: IProps) {
   const context = useContext(RouteKeyContext);
   const handleChange = (info: UploadChangeParam<UploadFile<unknown>>) => {
     if (info.file.status === "done") {
@@ -45,12 +49,21 @@ export default function AvatarComponent() {
     }
   };
 
-  const handleDeleteImage = () => {
+  const handleDeleteImage = (e: any) => {
     context.setImg("");
+    e.preventDefault();
   };
 
+  console.log(hideComponentEdit);
+
   return (
-    <div className="avatar-container">
+    <div
+      className={
+        hideComponentEdit
+          ? "avatar-container margin-avatar"
+          : "avatar-container"
+      }
+    >
       <ImgCrop shape="round" grid>
         <Upload
           className="avatar-uploader"
@@ -73,9 +86,6 @@ export default function AvatarComponent() {
                 style={{ color: "#8551DB", marginTop: "9px" }}
               >
                 <p>Change</p>
-                <p style={{ marginLeft: "28px" }} onClick={handleDeleteImage}>
-                  Delete
-                </p>
               </div>
             </>
           ) : (
@@ -100,6 +110,12 @@ export default function AvatarComponent() {
           )}
         </Upload>
       </ImgCrop>
+      <p
+        style={{ transform: "translate(80px, -22.5px)", color: "#8551DB" }}
+        onClick={handleDeleteImage}
+      >
+        {context.img ? "Delete" : ""}
+      </p>
     </div>
   );
 }

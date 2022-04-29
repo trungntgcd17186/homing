@@ -1,11 +1,9 @@
 import { Input, Modal } from "antd";
-import React, { useContext, useState } from "react";
-import Avatar from "../../assets/image/Avatar.svg";
+import React, { useState } from "react";
 import Edit from "../../assets/image/Edit.svg";
 import AvatarComponent from "../../components/Avatar";
 import ProfileContent from "../../components/ProfileContent";
 import ProfileEdit from "../../components/ProfileEdit";
-import { RouteKeyContext } from "../../Context/RouteContext";
 import "./index.css";
 
 function Profile() {
@@ -71,7 +69,7 @@ function Profile() {
         </div>
       </div>
 
-      <AvatarComponent />
+      <AvatarComponent hideComponentEdit={hideComponentEdit} />
 
       <Modal
         title="Add Phone Number"

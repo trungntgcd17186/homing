@@ -91,8 +91,12 @@
 .avatar-container {
   width: 120px;
   height: 120px;
-  margin-left: 116px;
+
   margin-top: 44px;
+}
+
+.margin-avatar {
+  transform: translate(-150px, 0px);
 }
 
 .btn-container {
@@ -190,4 +194,13 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.empty-value-input {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9a9fa9;
 }

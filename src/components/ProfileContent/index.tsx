@@ -79,7 +79,9 @@ export default function ProfileContent({ disabled }: IProp) {
                 </div>
                 <div className="social-media-container">
                   {Object.keys(user.socialMedia).length === 0 ? (
-                    <p>Please enter your social media</p>
+                    <p className="empty-value-input">
+                      Please enter your social media
+                    </p>
                   ) : (
                     Object.keys(user.socialMedia).map((value, index) => (
                       <div className="flex" key={index}>
@@ -108,24 +110,56 @@ export default function ProfileContent({ disabled }: IProp) {
               </div>
             </div>
             <div style={{ height: "272px", width: "400px" }}>
-              <p>{user.name}</p>
-              <p>{user.email}</p>
+              <p>{user.name ? user.name : "Please enter your name"}</p>
+              <p>{user.email ? user.email : "Please enter your email"}</p>
               <p className="add-phonenumber" onClick={showModal}>
                 Add your phone number
               </p>
-              <p>{user.license}</p>
-              <p>{user.experience + " " + "Years"}</p>
-              <p>{user.languages + ","}</p>
-              <p>{user.location + ","}</p>
+
+              {user.license ? (
+                <p>{user.license}</p> + ","
+              ) : (
+                <p className="empty-value-input">Please enter your license</p>
+              )}
+              {user.experience?.length !== 0 ? (
+                <p>{user.experience}</p> + ","
+              ) : (
+                <p className="empty-value-input">
+                  Please enter your experience
+                </p>
+              )}
+              {user.languages?.length !== 0 ? (
+                <p>{user.languages}</p> + ","
+              ) : (
+                <p className="empty-value-input">Please enter your languages</p>
+              )}
+
+              {user.location?.length !== 0 ? (
+                <p>{user.location}</p> + ","
+              ) : (
+                <p className="empty-value-input">Please enter your location</p>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      <div style={{ width: "100%", marginTop: "20px" }}>
-        <p className={"items-name"}>About me:</p>
+      <div
+        className={
+          dataFromTextEditor ? "about-me-container" : "about-me-container flex"
+        }
+      >
+        <p className="items-name">About me:</p>
 
-        <div dangerouslySetInnerHTML={{ __html: dataFromTextEditor }} />
+        {dataFromTextEditor ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: dataFromTextEditor,
+            }}
+          />
+        ) : (
+          <p className="empty-value-input">Please introduce your self</p>
+        )}
       </div>
     </div>
   ) : (
