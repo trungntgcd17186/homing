@@ -48,6 +48,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     }));
 
     setUser(listUser[0]);
+    context.setDataUser(listUser[0]);
   };
 
   const showModal = () => {
@@ -70,7 +71,6 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     console.log("Success:", {
       ...values,
       aboutMe: message,
-      avatar: context.img,
     });
     // Add a new document in collection "cities"
     try {
@@ -79,7 +79,6 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
         ...values,
         aboutMe: message,
         socialMedia: socialObject,
-        avatar: context.img,
       });
       console.log("Document written");
 
@@ -123,292 +122,315 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     console.log(`selected ${value}`);
   }
 
-  return disabled ? (
-    <div className="information flex">
-      <Form
-        name="basic"
-        initialValues={{
-          name: user.name,
-          email: user.email,
-          license: user.license,
-          experience: user.experience,
-          languages: user.languages,
-          location: user.location,
-          socialMedia: user.socialMedia,
-          aboutMe: user.aboutMe,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          className="item"
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please input your name!" }]}
-        >
-          <Input
-            className="form-input"
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-          />
-        </Form.Item>
+  return (
+    <>
+      {(() => {
+        if (disabled) {
+          return (
+            <div className="information flex">
+              <Form
+                name="basic"
+                initialValues={{
+                  name: user.name,
+                  email: user.email,
+                  license: user.license,
+                  experience: user.experience,
+                  languages: user.languages,
+                  location: user.location,
+                  socialMedia: user.socialMedia,
+                  aboutMe: user.aboutMe,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+              >
+                <Form.Item
+                  className="item"
+                  label="Name"
+                  name="name"
+                  rules={[
+                    { required: true, message: "Please input your name!" },
+                  ]}
+                >
+                  <Input
+                    className="form-input"
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                  />
+                </Form.Item>
 
-        <Form.Item
-          label="Email"
-          className="item"
-          name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
-        >
-          <Input
-            className="form-input"
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-          />
-        </Form.Item>
+                <Form.Item
+                  label="Email"
+                  className="item"
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please input your email!" },
+                  ]}
+                >
+                  <Input
+                    className="form-input"
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                  />
+                </Form.Item>
 
-        <div className="item flex">
-          <p>Phone number:</p>
-          <p className="add-phonenumber" onClick={showModal}>
-            Add your phone number
-          </p>
-        </div>
+                <div className="item flex">
+                  <p>Phone number:</p>
+                  <p className="add-phonenumber cursor" onClick={showModal}>
+                    Add your phone number
+                  </p>
+                </div>
 
-        <Form.Item
-          className="item"
-          style={{ marginTop: "10px" }}
-          label="License#"
-          name="license"
-        >
-          <Input
-            className="form-input"
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-          />
-        </Form.Item>
+                <Form.Item
+                  className="item"
+                  style={{ marginTop: "10px" }}
+                  label="License#"
+                  name="license"
+                >
+                  <Input
+                    className="form-input"
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                  />
+                </Form.Item>
 
-        <Form.Item className="item" label="Experience" name="experience">
-          <Input
-            className="form-input"
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            type="number"
-          />
-        </Form.Item>
+                <Form.Item
+                  className="item"
+                  label="Experience"
+                  name="experience"
+                >
+                  <Input
+                    className="form-input"
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    type="number"
+                  />
+                </Form.Item>
 
-        <Form.Item className="item" label="Languages" name="languages">
-          <Select
-            mode="multiple"
-            allowClear
-            style={{ width: "100%" }}
-            placeholder="Please select"
-            defaultValue={["a10", "c12"]}
-            onChange={handleChangeOption}
-          >
-            {childrenLanguages}
-          </Select>
-        </Form.Item>
+                <Form.Item className="item" label="Languages" name="languages">
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    clearIcon={<img src={AllowClearIcon} />}
+                    style={{ width: "100%" }}
+                    placeholder="Please select"
+                    defaultValue={["a10", "c12"]}
+                    onChange={handleChangeOption}
+                  >
+                    {childrenLanguages}
+                  </Select>
+                </Form.Item>
 
-        <Form.Item className="item" label="Location" name="location">
-          <Select
-            mode="multiple"
-            allowClear
-            style={{ width: "100%" }}
-            placeholder="Please select"
-            defaultValue={["a10", "c12"]}
-            onChange={handleChangeOption}
-          >
-            {childrenLocation}
-          </Select>
-        </Form.Item>
+                <Form.Item className="item" label="Location" name="location">
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    clearIcon={<img src={AllowClearIcon} />}
+                    style={{ width: "100%" }}
+                    placeholder="Please select"
+                    defaultValue={["a10", "c12"]}
+                    onChange={handleChangeOption}
+                  >
+                    {childrenLocation}
+                  </Select>
+                </Form.Item>
 
-        <Form.Item className="item" label="Social Media" name="socialMedia">
-          <Input
-            defaultValue={user.socialMedia.Twitter}
-            onChange={(e) => handleChangeInput(e, "Twitter")}
-            suffix={
-              <div className="suffix-container">
-                <img width="16px" src={Twitter} alt="icon" />
-                <img
-                  style={{ marginLeft: "14px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            className="form-social"
-          />
+                <Form.Item
+                  className="item"
+                  label="Social Media"
+                  name="socialMedia"
+                >
+                  <Input
+                    defaultValue={user.socialMedia.Twitter}
+                    onChange={(e) => handleChangeInput(e, "Twitter")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="16px" src={Twitter} alt="icon" />
+                        <img
+                          style={{ marginLeft: "14px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    className="form-social"
+                  />
 
-          <Input
-            defaultValue={user.socialMedia.Pinterest}
-            onChange={(e) => handleChangeInput(e, "Pinterest")}
-            suffix={
-              <div className="suffix-container">
-                <img width="13px" src={Pinterest} alt="icon" />
-                <img
-                  style={{ marginLeft: "17px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            className="form-social margin12"
-          />
+                  <Input
+                    defaultValue={user.socialMedia.Pinterest}
+                    onChange={(e) => handleChangeInput(e, "Pinterest")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="13px" src={Pinterest} alt="icon" />
+                        <img
+                          style={{ marginLeft: "17px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    className="form-social margin12"
+                  />
 
-          <Input
-            defaultValue={user.socialMedia.Facebook}
-            onChange={(e) => handleChangeInput(e, "Facebook")}
-            suffix={
-              <div className="suffix-container">
-                <img width="9px" src={Facebook} alt="icon" />
-                <img
-                  style={{ marginLeft: "21px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            className="form-social margin12"
-          />
+                  <Input
+                    defaultValue={user.socialMedia.Facebook}
+                    onChange={(e) => handleChangeInput(e, "Facebook")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="9px" src={Facebook} alt="icon" />
+                        <img
+                          style={{ marginLeft: "21px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    className="form-social margin12"
+                  />
 
-          <Input
-            defaultValue={user.socialMedia.Instagram}
-            onChange={(e) => handleChangeInput(e, "Instagram")}
-            suffix={
-              <div className="suffix-container">
-                <img width="16px" src={Instagram} alt="icon" />
-                <img
-                  style={{ marginLeft: "14px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            className="form-social margin12"
-          />
+                  <Input
+                    defaultValue={user.socialMedia.Instagram}
+                    onChange={(e) => handleChangeInput(e, "Instagram")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="16px" src={Instagram} alt="icon" />
+                        <img
+                          style={{ marginLeft: "14px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    className="form-social margin12"
+                  />
 
-          <Input
-            defaultValue={user.socialMedia.Vimeo}
-            onChange={(e) => handleChangeInput(e, "Vimeo")}
-            suffix={
-              <div className="suffix-container">
-                <img width="16px" src={Vimeo} alt="icon" />
-                <img
-                  style={{ marginLeft: "14px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            className="form-social margin12"
-          />
+                  <Input
+                    defaultValue={user.socialMedia.Vimeo}
+                    onChange={(e) => handleChangeInput(e, "Vimeo")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="16px" src={Vimeo} alt="icon" />
+                        <img
+                          style={{ marginLeft: "14px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    className="form-social margin12"
+                  />
 
-          <Input
-            allowClear={{
-              clearIcon: <img src={AllowClearIcon} />,
-            }}
-            defaultValue={user.socialMedia.In}
-            onChange={(e) => handleChangeInput(e, "In")}
-            suffix={
-              <div className="suffix-container">
-                <img width="16px" src={In} alt="icon" />
-                <img
-                  style={{ marginLeft: "14px", height: "20px" }}
-                  src={Line}
-                  alt="icon"
-                />
-              </div>
-            }
-            className="form-social margin12"
-          />
-        </Form.Item>
+                  <Input
+                    allowClear={{
+                      clearIcon: <img src={AllowClearIcon} />,
+                    }}
+                    defaultValue={user.socialMedia.In}
+                    onChange={(e) => handleChangeInput(e, "In")}
+                    suffix={
+                      <div className="suffix-container">
+                        <img width="16px" src={In} alt="icon" />
+                        <img
+                          style={{ marginLeft: "14px", height: "20px" }}
+                          src={Line}
+                          alt="icon"
+                        />
+                      </div>
+                    }
+                    className="form-social margin12"
+                  />
+                </Form.Item>
 
-        <Form.Item label="" name="aboutMe">
-          <p className="items-name">About me:</p>
-          <Editor parentCallback={callbackFunction} />
-        </Form.Item>
+                <Form.Item label="" name="aboutMe" className="form-about-me">
+                  <p className="items-name">About me:</p>
+                  <Editor parentCallback={callbackFunction} />
+                </Form.Item>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            marginTop: "40px",
-          }}
-        >
-          <Button
-            style={{
-              width: "140px",
-              height: "36px",
-              background: "#FFFFFF",
-              border: "1px solid #8551DB",
-              boxSizing: "border-box",
-              borderRadius: "29px",
-              fontFamily: "Poppins",
-              fontStyle: "normal",
-              fontWeight: "500",
-              fontSize: "14px",
-              lineHeight: "20px",
-              color: "#8551DB",
-            }}
-            onClick={handleSaveProfile}
-          >
-            Cancel
-          </Button>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                    marginTop: "40px",
+                  }}
+                >
+                  <Button
+                    style={{
+                      width: "140px",
+                      height: "36px",
+                      background: "#FFFFFF",
+                      border: "1px solid #8551DB",
+                      boxSizing: "border-box",
+                      borderRadius: "29px",
+                      fontFamily: "Poppins",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                      color: "#8551DB",
+                    }}
+                    onClick={handleSaveProfile}
+                  >
+                    Cancel
+                  </Button>
 
-          <button
-            style={{
-              width: "140px",
-              height: "36px",
-              background: "#8551DB",
-              border: "1px solid #8551DB",
-              boxSizing: "border-box",
-              borderRadius: "29px",
-              fontFamily: "Poppins",
-              fontStyle: "normal",
-              fontWeight: "500",
-              fontSize: "14px",
-              lineHeight: "20px",
-              color: "#FFFFFF",
-              marginLeft: "28px",
-            }}
-            type="submit"
-            onClick={handleSaveProfile}
-          >
-            Save
-          </button>
-        </div>
-      </Form>
-      <Modal
-        title="Add Phone Number"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Fill Your Phone Number</p>
-        <Input />
-      </Modal>
-    </div>
-  ) : (
-    <div></div>
+                  <button
+                    style={{
+                      width: "140px",
+                      height: "36px",
+                      background: "#8551DB",
+                      border: "1px solid #8551DB",
+                      boxSizing: "border-box",
+                      borderRadius: "29px",
+                      fontFamily: "Poppins",
+                      fontStyle: "normal",
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      lineHeight: "20px",
+                      color: "#FFFFFF",
+                      marginLeft: "28px",
+                    }}
+                    className="cursor"
+                    type="submit"
+                    onClick={handleSaveProfile}
+                  >
+                    Save
+                  </button>
+                </div>
+              </Form>
+              <Modal
+                title="Add Phone Number"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+              >
+                <p>Fill Your Phone Number</p>
+                <Input />
+              </Modal>
+            </div>
+          );
+        } else {
+          return <></>;
+        }
+      })()}
+    </>
   );
 }

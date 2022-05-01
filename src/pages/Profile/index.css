@@ -28,11 +28,11 @@
 .items-name {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 550;
+  font-weight: 500;
   font-size: 14px;
-  line-height: 20px;
   color: #484848;
   width: 140px;
+  margin-bottom: 0;
 }
 
 .information {
@@ -131,7 +131,11 @@
   width: 400px !important;
   height: 32px;
   display: flex;
-  flex-direction: row-reverse;
+  padding-left: 60px;
+}
+
+.input-social-container {
+  position: relative;
 }
 
 .ant-form-item-required {
@@ -142,14 +146,8 @@
   width: 540px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.item {
-  width: 540px;
-  display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  position: relative;
 }
 
 .margin12 {
@@ -167,6 +165,10 @@
 
 .suffix-container {
   padding-right: 20px;
+  position: absolute;
+  top: 8%;
+  left: 3%;
+  z-index: 999;
 }
 
 .ant-form-item-label {
@@ -203,4 +205,18 @@ input[type="number"] {
   font-size: 14px;
   line-height: 20px;
   color: #9a9fa9;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.text-editor-wrraper .editor-input {
+  padding-left: 0;
+  padding-top: 0;
+  margin-top: 8px;
+}
+
+.form-about-me .editor-container {
+  margin-top: 20px;
 }

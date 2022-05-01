@@ -71,12 +71,15 @@ export default function MyVideos() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        if (
+          progress <
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        ) {
+          return;
+        } else {
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        }
 
-        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-
-        console.log(snapshot.state);
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -247,7 +250,10 @@ export default function MyVideos() {
                 You don't have any video for the educational content
               </p>
             )}
-            <p onClick={handleCheckIsAddVideoByUrl} className="add-video-btn">
+            <p
+              onClick={handleCheckIsAddVideoByUrl}
+              className="add-video-btn cursor"
+            >
               Add video
             </p>
           </div>
@@ -291,7 +297,7 @@ export default function MyVideos() {
             <p className="video-content">
               You don't have any video for the educational content
             </p>
-            <p className="add-video-btn">Add video</p>
+            <p className="add-video-btn cursor">Add video</p>
           </div>
         </div>
 
@@ -301,7 +307,7 @@ export default function MyVideos() {
             <p className="video-content">
               You don't have any video for the about me or my busines
             </p>
-            <p className="add-video-btn">Add video</p>
+            <p className="add-video-btn cursor">Add video</p>
           </div>
         </div>
 
@@ -311,7 +317,7 @@ export default function MyVideos() {
             <p className="video-content">
               You don't have any video for the Homing concierge videos
             </p>
-            <p className="add-video-btn">Add video</p>
+            <p className="add-video-btn cursor">Add video</p>
           </div>
         </div>
       </div>

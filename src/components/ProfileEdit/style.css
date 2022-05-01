@@ -47,7 +47,7 @@ h1 {
 .editor-container {
   border-radius: 2px;
   max-width: 846px;
-  max-height: 140px;
+  min-height: 140px;
   color: #000;
   position: relative;
   line-height: 20px;
@@ -59,7 +59,6 @@ h1 {
   background: #fff;
   position: relative;
   border: 1px solid #dde1e9;
-  max-height: 92px;
 }
 
 .editor-input {
@@ -69,10 +68,11 @@ h1 {
   position: relative;
   tab-size: 1;
   outline: 0;
-  padding: 15px 32px;
+  padding: 15px;
+  padding-left: 32px;
   caret-color: #444;
   width: 846px;
-  height: 92px;
+  min-height: 92px;
 }
 
 .editor-placeholder {

@@ -1,5 +1,5 @@
-import { Input, Modal } from "antd";
-import React, { useState } from "react";
+import { Input, Modal, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import Edit from "../../assets/image/Edit.svg";
 import AvatarComponent from "../../components/Avatar";
 import ProfileContent from "../../components/ProfileContent";
@@ -68,9 +68,7 @@ function Profile() {
           />
         </div>
       </div>
-
       <AvatarComponent hideComponentEdit={hideComponentEdit} />
-
       <Modal
         title="Add Phone Number"
         visible={isModalVisible}

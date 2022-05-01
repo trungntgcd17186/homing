@@ -1,13 +1,16 @@
-import { Upload } from "antd";
+import { Upload, Spin } from "antd";
+
 import ImgCrop from "antd-img-crop";
 import {
   RcFile,
   UploadChangeParam,
   UploadFile,
 } from "antd/lib/upload/interface";
-import React, { useContext } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
 import Avatar from "../../assets/image/Avatar.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
+import { db } from "../firebaseConfig";
 
 interface IProps {
   hideComponentEdit: boolean;
@@ -15,12 +18,27 @@ interface IProps {
 
 export default function AvatarComponent({ hideComponentEdit }: IProps) {
   const context = useContext(RouteKeyContext);
+  const [showSpinLoading, setShowSpinLoading] = useState(false);
+
+  useEffect(() => {
+    setShowSpinLoading(true);
+    setTimeout(() => {
+      setShowSpinLoading(false);
+    }, 300);
+  }, [context.edit]);
+
   const handleChange = (info: UploadChangeParam<UploadFile<unknown>>) => {
     if (info.file.status === "done") {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: string) =>
-        context.setImg(imageUrl)
-      );
+
+      getBase64(info.file.originFileObj, async (imageUrl: string) => {
+        const userDoc = doc(db, "users", "1RljEtbnk0BcXx2oq3ws");
+        await updateDoc(userDoc, {
+          ...context.dataUser,
+          avatar: imageUrl,
+        });
+        context.setEdit(!context.edit);
+      });
     }
   };
 
@@ -54,68 +72,80 @@ export default function AvatarComponent({ hideComponentEdit }: IProps) {
     e.preventDefault();
   };
 
-  console.log(hideComponentEdit);
-
   return (
-    <div
-      className={
-        hideComponentEdit
-          ? "avatar-container margin-avatar"
-          : "avatar-container"
-      }
-    >
-      <ImgCrop shape="round" grid>
-        <Upload
-          className="avatar-uploader"
-          name="avatar"
-          showUploadList={false}
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          onChange={handleChange}
-          onPreview={onPreview}
-        >
-          {context.img ? (
-            <>
-              <img
-                src={context.img || Avatar}
-                alt=""
-                style={{ borderRadius: "50%", width: "120px" }}
-                className="avatar"
-              />
-              <div
-                className="flex"
-                style={{ color: "#8551DB", marginTop: "9px" }}
-              >
-                <p>Change</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <img
-                src={context.img || Avatar}
-                alt=""
-                style={{ borderRadius: "50%", width: "120px" }}
-                className="avatar"
-              />
+    <>
+      {(() => {
+        if (showSpinLoading) return;
+        else {
+          return (
+            <div
+              className={
+                hideComponentEdit
+                  ? "avatar-container margin-avatar"
+                  : "avatar-container"
+              }
+            >
+              <ImgCrop shape="round" grid>
+                <Upload
+                  className="avatar-uploader"
+                  name="avatar"
+                  showUploadList={false}
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  onChange={handleChange}
+                  onPreview={onPreview}
+                >
+                  {context.dataUser.avatar ? (
+                    <>
+                      <img
+                        src={context.dataUser.avatar || Avatar}
+                        alt=""
+                        style={{ borderRadius: "50%", width: "120px" }}
+                        className="avatar"
+                      />
+                      <div
+                        className="flex"
+                        style={{ color: "#8551DB", marginTop: "9px" }}
+                      >
+                        <p className="cursor">Change</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={context.dataUser.avatar || Avatar}
+                        alt=""
+                        style={{ borderRadius: "50%", width: "120px" }}
+                        className="avatar"
+                      />
+                      <p
+                        style={{
+                          marginTop: "9px",
+                          width: "120px",
+                          textAlign: "center",
+                          color: "#8551DB",
+                        }}
+                        className="cursor"
+                      >
+                        Change
+                      </p>
+                    </>
+                  )}
+                </Upload>
+              </ImgCrop>
               <p
                 style={{
-                  marginTop: "9px",
-                  width: "120px",
-                  textAlign: "center",
+                  transform: "translate(80px, -22.5px)",
                   color: "#8551DB",
                 }}
+                onClick={handleDeleteImage}
+                className="cursor"
               >
-                Change
+                {context.dataUser.avatar ? "Delete" : ""}
               </p>
-            </>
-          )}
-        </Upload>
-      </ImgCrop>
-      <p
-        style={{ transform: "translate(80px, -22.5px)", color: "#8551DB" }}
-        onClick={handleDeleteImage}
-      >
-        {context.img ? "Delete" : ""}
-      </p>
-    </div>
+            </div>
+          );
+        }
+      })()}
+    </>
   );
 }
