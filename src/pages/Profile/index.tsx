@@ -1,5 +1,4 @@
-import { Input, Modal, Spin } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Edit from "../../assets/image/Edit.svg";
 import AvatarComponent from "../../components/Avatar";
 import ProfileContent from "../../components/ProfileContent";
@@ -10,20 +9,6 @@ function Profile() {
   const [hideComponentContent, setHideComponentContent] = useState(true);
   const [hideComponentEdit, setHideComponentEdit] = useState(false);
   const [hideElement, setHideElement] = useState("");
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   const handleEditProfile = () => {
     setHideComponentContent(false);
@@ -50,7 +35,6 @@ function Profile() {
             alt="icon"
             style={{
               marginLeft: "16px",
-
               cursor: "pointer",
               height: "20px",
               width: "20px",
@@ -68,16 +52,8 @@ function Profile() {
           />
         </div>
       </div>
+
       <AvatarComponent hideComponentEdit={hideComponentEdit} />
-      <Modal
-        title="Add Phone Number"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Fill Your Phone Number</p>
-        <Input />
-      </Modal>
     </div>
   );
 }

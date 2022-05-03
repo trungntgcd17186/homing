@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import AllowClearIcon from "../../assets/image/AllowClearIcon.svg";
 import Facebook from "../../assets/image/Facebook.svg";
 import In from "../../assets/image/In.svg";
 import Instagram from "../../assets/image/Instagram.svg";
@@ -9,8 +10,7 @@ import Line from "../../assets/image/LineSocialMedia.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
-import AllowClearIcon from "../../assets/image/AllowClearIcon.svg";
-import { RouteKeyContext } from "../../Context/RouteContext";
+import { Context } from "../../Context/RouteContext";
 import { db } from "../firebaseConfig";
 import Editor from "./Editor";
 import "./style.css";
@@ -23,7 +23,7 @@ interface IProp {
 const { Option } = Select;
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
-  const context = useContext(RouteKeyContext);
+  const context = useContext(Context);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const usersCollectionRef = collection(db, "users");
   const [user, setUser] = useState<IData>({

@@ -1,7 +1,7 @@
 import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
-import English from "world_countries_lists/data/countries/en/world.json";
-import "antd/dist/antd.css";
 import "antd-country-phone-input/dist/index.css";
+import "antd/dist/antd.css";
+import English from "world_countries_lists/data/countries/en/world.json";
 
 // You could use any flag package you like.
 // example: npm install flagpack

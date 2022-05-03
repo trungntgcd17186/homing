@@ -3,7 +3,7 @@ import { SiderProps } from "antd/lib/layout/Sider";
 import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import VectorUrl from "../../assets/image/VectorUrl.svg";
-import { RouteKeyContext } from "../../Context/RouteContext";
+import { Context } from "../../Context/RouteContext";
 import { RouteProps, routes } from "../../lib/routes";
 interface Props extends SiderProps {}
 
@@ -17,7 +17,7 @@ interface IContext {
 }
 
 export default function SiderComponent(props: Props) {
-  const context = useContext(RouteKeyContext);
+  const context = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
 

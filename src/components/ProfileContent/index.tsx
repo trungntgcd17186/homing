@@ -8,16 +8,18 @@ import Line from "../../assets/image/LineSocialMedia.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
-import { RouteKeyContext } from "../../Context/RouteContext";
+import { Context } from "../../Context/RouteContext";
 import AddPhone from "../AddPhone";
 import { db } from "../firebaseConfig";
+import VerifyPhoneNumber from "../VerifyPhoneNumber";
 
 interface IProp {
   disabled: boolean;
 }
 export default function ProfileContent({ disabled }: IProp) {
-  const context = useContext(RouteKeyContext);
+  const context = useContext(Context);
   const [showSpinLoading, setShowSpinLoading] = useState(false);
+
   const usersCollectionRef = collection(db, "users");
 
   const [user, setUser] = useState<IData>({
@@ -45,8 +47,6 @@ export default function ProfileContent({ disabled }: IProp) {
 
     setUser(listUser[0]);
   };
-
-  const showModal = () => {};
 
   const Icon: any = {
     Twitter: Twitter,
@@ -187,6 +187,7 @@ export default function ProfileContent({ disabled }: IProp) {
                         </p>
 
                         <AddPhone />
+                        <VerifyPhoneNumber />
 
                         {handleCheckEmptyLicense()}
                         {handleCheckEmptyExperience()}

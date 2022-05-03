@@ -1,9 +1,11 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AddPhoneNumber from "../../assets/image/AddPhoneNumber.svg";
+import { Context } from "../../Context/RouteContext";
 import CountryPhoneInputAntd from "./CountryPhoneInput";
 
 function AddPhone() {
+  const context = useContext(Context);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -12,6 +14,7 @@ function AddPhone() {
 
   const handleOk = () => {
     setIsModalVisible(false);
+    context.setIsModalVerifyPhoneNumberVisible(true);
   };
 
   const handleCancel = () => {

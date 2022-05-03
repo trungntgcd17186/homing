@@ -9,7 +9,7 @@ import {
 import { doc, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import Avatar from "../../assets/image/Avatar.svg";
-import { RouteKeyContext } from "../../Context/RouteContext";
+import { Context } from "../../Context/RouteContext";
 import { db } from "../firebaseConfig";
 
 interface IProps {
@@ -17,7 +17,7 @@ interface IProps {
 }
 
 export default function AvatarComponent({ hideComponentEdit }: IProps) {
-  const context = useContext(RouteKeyContext);
+  const context = useContext(Context);
   const [showSpinLoading, setShowSpinLoading] = useState(false);
 
   useEffect(() => {

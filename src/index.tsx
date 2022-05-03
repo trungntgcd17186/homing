@@ -4,18 +4,18 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { RouteKeyProvider } from "./Context/RouteContext";
+import { GlobalProvider } from "./Context/RouteContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RouteKeyProvider>
+    <GlobalProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </RouteKeyProvider>
+    </GlobalProvider>
   </React.StrictMode>
 );
 

@@ -5,12 +5,14 @@ type RouteKeyProviderProps = {
   children: React.ReactNode;
 };
 
-const RouteKeyContext = createContext<any>("");
+const Context = createContext<any>("");
 
-function RouteKeyProvider({ children }: RouteKeyProviderProps) {
+function GlobalProvider({ children }: RouteKeyProviderProps) {
   const [routeKey, setRouteKey] = useState("");
   const [edit, setEdit] = useState(false);
   const [dataUser, setDataUser] = useState([]);
+  const [isModalVerifyPhoneNumberVisible, setIsModalVerifyPhoneNumberVisible] =
+    useState(false);
 
   const value = {
     routeKey,
@@ -19,12 +21,10 @@ function RouteKeyProvider({ children }: RouteKeyProviderProps) {
     edit,
     setDataUser,
     dataUser,
+    setIsModalVerifyPhoneNumberVisible,
+    isModalVerifyPhoneNumberVisible,
   };
-  return (
-    <RouteKeyContext.Provider value={value}>
-      {children}
-    </RouteKeyContext.Provider>
-  );
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
-export { RouteKeyContext, RouteKeyProvider };
+export { Context, GlobalProvider };
