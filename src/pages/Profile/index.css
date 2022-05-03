@@ -220,3 +220,81 @@ input[type="number"] {
 .form-about-me .editor-container {
   margin-top: 20px;
 }
+
+.add-phone-modal-style {
+  border-radius: 28px;
+}
+
+.add-phone-modal-title {
+  color: #8551db;
+  font-weight: 600;
+  font-size: 24px;
+  font-family: "Poppins";
+  font-style: normal;
+  text-align: center;
+}
+
+.add-phone-modal-description {
+  text-align: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #484848;
+}
+
+.add-phone-modal-content {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+  height: 80px;
+  width: 400px;
+  margin-bottom: 0;
+}
+
+.add-phone-modal-privacy-policy {
+  color: #8551db;
+  font-weight: 300;
+  cursor: pointer;
+  width: 50px;
+}
+
+.add-phone-modal-submit-btn {
+  height: 36px;
+  width: 400px;
+  border-radius: 39px;
+  background: #8551db;
+  border: 1px solid #8551db;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+
+.country-phone-input-container .antd-country-phone-input .ant-input-prefix {
+  height: 40px;
+  width: 86px;
+  background: #f1f1f1;
+  border-radius: 30px;
+}
+
+.country-phone-input-container .antd-country-phone-input .ant-input {
+  height: 40px;
+  width: 308px;
+  background: #f1f1f1;
+  border-radius: 30px;
+  padding-left: 17px;
+}
+
+.country-phone-input-container .antd-country-phone-input {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.country-phone-input-container::selection {
+  border: none !important;
+}

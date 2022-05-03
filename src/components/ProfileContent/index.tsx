@@ -9,6 +9,7 @@ import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
 import { RouteKeyContext } from "../../Context/RouteContext";
+import AddPhone from "../AddPhone";
 import { db } from "../firebaseConfig";
 
 interface IProp {
@@ -184,12 +185,8 @@ export default function ProfileContent({ disabled }: IProp) {
                         <p>
                           {user.email ? user.email : "Please enter your email"}
                         </p>
-                        <p
-                          className="add-phonenumber cursor"
-                          onClick={showModal}
-                        >
-                          Add your phone number
-                        </p>
+
+                        <AddPhone />
 
                         {handleCheckEmptyLicense()}
                         {handleCheckEmptyExperience()}

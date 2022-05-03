@@ -50,6 +50,8 @@ function App() {
         flexDirection: "column",
         alignItems: "center",
         paddingBottom: "20px",
+        backgroundColor: "#ffffff",
+        minHeight: "100vh",
       }}
     >
       <Header />
