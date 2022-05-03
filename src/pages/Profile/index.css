@@ -229,9 +229,11 @@ input[type="number"] {
   color: #8551db;
   font-weight: 600;
   font-size: 24px;
+
   font-family: "Poppins";
   font-style: normal;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .add-phone-modal-description {
@@ -239,9 +241,19 @@ input[type="number"] {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 300;
+
   font-size: 14px;
   letter-spacing: -0.02em;
   color: #484848;
+  margin-bottom: 0;
+}
+
+.margin-top-24 {
+  margin-top: 24px;
+}
+
+.margin-top-12 {
+  margin-top: 12px;
 }
 
 .add-phone-modal-content {
@@ -298,3 +310,60 @@ input[type="number"] {
 .country-phone-input-container::selection {
   border: none !important;
 }
+
+.input-code-verify-container {
+  width: 400px;
+  height: 40px;
+  margin-top: 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-phone-modal-not-received-code {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+
+  letter-spacing: -0.02em;
+  color: #484848;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.color-purple-font-weight {
+  color: #8551db;
+  font-weight: 500;
+  padding-bottom: 61px;
+}
+
+.add-phone-modal-input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+
+  background: #fafbfe;
+  border: 1px solid #c3c9d5;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: #484848;
+}
+
+.add-phone-modal-input:hover {
+  border: 1px solid #8551db !important;
+}
+
+/* .add-phone-modal-input:: {
+  border: 1px solid #8551db !important;
+} */

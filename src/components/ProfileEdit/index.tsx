@@ -11,7 +11,9 @@ import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
 import { Context } from "../../Context/RouteContext";
+import AddPhone from "../AddPhone";
 import { db } from "../firebaseConfig";
+import VerifyPhoneNumber from "../VerifyPhoneNumber";
 import Editor from "./Editor";
 import "./style.css";
 
@@ -24,7 +26,6 @@ const { Option } = Select;
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const context = useContext(Context);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const usersCollectionRef = collection(db, "users");
   const [user, setUser] = useState<IData>({
     socialMedia: {},
@@ -33,6 +34,8 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
 
   const [message, setMessage] = useState("");
   const [socialObject, setSocialObject] = useState({});
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -178,9 +181,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
 
                 <div className="item flex">
                   <p>Phone number:</p>
-                  <p className="add-phonenumber cursor" onClick={showModal}>
-                    Add your phone number
-                  </p>
+                  <AddPhone />
                 </div>
 
                 <Form.Item

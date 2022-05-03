@@ -2,12 +2,12 @@ import { Modal } from "antd";
 import React, { useContext, useState } from "react";
 import AddPhoneNumber from "../../assets/image/AddPhoneNumber.svg";
 import { Context } from "../../Context/RouteContext";
+import VerifyPhoneNumber from "../VerifyPhoneNumber";
 import CountryPhoneInputAntd from "./CountryPhoneInput";
 
 function AddPhone() {
   const context = useContext(Context);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -87,6 +87,7 @@ function AddPhone() {
             Submit
           </button>
         </div>
+        <VerifyPhoneNumber />
       </Modal>
     </>
   );

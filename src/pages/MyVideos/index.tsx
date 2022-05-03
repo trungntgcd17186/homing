@@ -12,6 +12,7 @@ import DeleteVideo from "../../assets/image/Close.svg";
 import DropVideo from "../../assets/image/DropVideo.svg";
 import PauseVideo from "../../assets/image/PauseVideo.svg";
 import "./index.css";
+import MyVideosContent from "../../components/MyVideosContent/MyVideosContent";
 
 export default function MyVideos() {
   const { Dragger } = Upload;
@@ -28,7 +29,6 @@ export default function MyVideos() {
   const [addVideoByUrl, setAddVideoByUrl] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [listVideo, setListVideo] = useState<any[]>([]);
-  const [reRender, setReRender] = useState(false);
 
   const formHandler = (e: any) => {
     const file = e.file.originFileObj;
@@ -213,7 +213,19 @@ export default function MyVideos() {
       <div className="all-video-container">
         <h3 className="intro-video">Videos about locations I serve:</h3>
         <div className="mgt-16">
-          <p className="type-video">Places I serve</p>
+          {listVideo.length > 0 ? (
+            <div className="flex" style={{ height: "20px" }}>
+              <p className="type-video">Places I serve</p>
+              <p
+                onClick={handleCheckIsAddVideoByUrl}
+                className="add-video-btn cursor"
+              >
+                + Add new video
+              </p>
+            </div>
+          ) : (
+            <p className="type-video">Places I serve</p>
+          )}
 
           <div className="flex upload-video-by-url">
             {addVideoByUrl ? (
@@ -222,13 +234,20 @@ export default function MyVideos() {
                 onFinish={handleAddVideo}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
                 <Form.Item
                   label=""
                   name="url"
-                  rules={[
-                    { required: true, message: "Please input your username!" },
-                  ]}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
                   <Input
                     placeholder="https://12345678.com"
@@ -239,55 +258,36 @@ export default function MyVideos() {
 
                 <button
                   onClick={handleCheckIsAddVideoByUrl}
-                  className="add-video-btn"
+                  className="add-video-save-btn cursor"
                   type="submit"
                 >
                   Save
                 </button>
               </Form>
             ) : (
-              <p className="video-content">
-                You don't have any video for the educational content
-              </p>
+              <>
+                {listVideo.length > 0 ? (
+                  ""
+                ) : (
+                  <>
+                    {" "}
+                    <p className="video-content">
+                      You don't have any video for the educational content
+                    </p>
+                    <p
+                      onClick={handleCheckIsAddVideoByUrl}
+                      className="add-video-btn cursor"
+                    >
+                      Add video
+                    </p>
+                  </>
+                )}
+              </>
             )}
-            <p
-              onClick={handleCheckIsAddVideoByUrl}
-              className="add-video-btn cursor"
-            >
-              Add video
-            </p>
           </div>
 
-          <div className="flex">
-            {showVideo
-              ? listVideo.map(
-                  (item: { url: string; id: number }, index: number) => (
-                    <div key={index} className="video-container">
-                      <video
-                        ref={videoRef}
-                        src={item.url ? item.url : ""}
-                        width={370}
-                        autoPlay
-                        loop
-                      />
-                      <div className="video-name">
-                        <p>Christine Remeo Realty</p>
-                      </div>
-                      <img
-                        src={PauseVideo}
-                        className="play-video-btn"
-                        onClick={handlePlayVideo}
-                      />
-
-                      <img
-                        className="delete-video-btn"
-                        src={DeleteVideo}
-                        onClick={() => handleDeleteVideoByUrl(item.id)}
-                      />
-                    </div>
-                  )
-                )
-              : ""}
+          <div style={{ marginTop: "16px" }}>
+            <MyVideosContent showVideo={showVideo} listVideo={listVideo} />
           </div>
         </div>
 

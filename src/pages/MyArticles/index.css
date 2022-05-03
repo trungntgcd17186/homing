@@ -74,9 +74,10 @@
   height: 10px;
 }
 
-.editor-paragraph > span {
+.post-container .editor-paragraph > span {
   display: flex;
   align-items: center;
+  height: 40px;
 }
 
 .component-wrapper {

@@ -187,7 +187,6 @@ export default function ProfileContent({ disabled }: IProp) {
                         </p>
 
                         <AddPhone />
-                        <VerifyPhoneNumber />
 
                         {handleCheckEmptyLicense()}
                         {handleCheckEmptyExperience()}
