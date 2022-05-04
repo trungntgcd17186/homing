@@ -131,12 +131,12 @@ export default function MyArticles() {
                 fontSize: "16px",
                 lineHeight: "24px",
                 color: "#484848",
+                width: "90%",
               }}
             />
           </Form.Item>
           <div
             style={{
-              marginLeft: "24px",
               display: "flex",
               justifyContent: "flex-start",
             }}

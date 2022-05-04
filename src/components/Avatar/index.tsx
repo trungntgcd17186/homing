@@ -9,7 +9,7 @@ import {
 import { doc, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import Avatar from "../../assets/image/Avatar.svg";
-import { Context } from "../../Context/RouteContext";
+import { Context } from "../../Context/GlobalContext";
 import { db } from "../firebaseConfig";
 
 interface IProps {
@@ -32,7 +32,7 @@ export default function AvatarComponent({ hideComponentEdit }: IProps) {
       // Get this url from response in real world.
 
       getBase64(info.file.originFileObj, async (imageUrl: string) => {
-        const userDoc = doc(db, "users", "1RljEtbnk0BcXx2oq3ws");
+        const userDoc = doc(db, "users", "wBHXu0KsEE3toBtW0RJ2");
         await updateDoc(userDoc, {
           ...context.dataUser,
           avatar: imageUrl,

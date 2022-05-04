@@ -15,47 +15,38 @@ interface IProps {
 export default function MyVideosContent({ showVideo, listVideo }: IProps) {
   const slider = useRef<any>(null);
   const videoRef = useRef<any>(null);
-  const [content, setContent] = useState<any[]>([]);
-  const contentCollectionRef = collection(db, "content");
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const [isPause, setIsPause] = useState(false);
 
-  const getUsers = async () => {
-    const q = query(contentCollectionRef);
-
-    const data: { docs: any[] } = await getDocs(q);
-
-    const listUser = data.docs.map((doc: any) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    setContent(listUser);
-  };
-
-  function onChange(currentSlide: number) {
-    console.log(currentSlide);
-  }
+  //get url video from localStorage
+  const urlVideo = localStorage.getItem("videoContent");
+  const videoUrlLocalStorage = JSON.parse(urlVideo || "[]");
 
   const carouselSettings = {
     slidesToShow: 3,
     slidesToScroll: 1,
     dots: false,
-    infinite: listVideo.length > 3 ? true : false,
+    infinite: videoUrlLocalStorage.length > 3 ? true : false,
   };
 
   const handleNextSlide = () => {
     slider.current.prev();
   };
 
-  console.log(listVideo);
+  const handlePlayVideo = () => {
+    setIsPause(!isPause);
+
+    if (isPause) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  };
 
   return (
     <>
-      {listVideo.length > 0 ? (
+      {videoUrlLocalStorage.length > 0 ? (
         <div className="my-videos-slider-container">
-          {listVideo.length > 3 ? (
+          {videoUrlLocalStorage.length > 3 ? (
             <>
               <img
                 style={{
@@ -90,7 +81,7 @@ export default function MyVideosContent({ showVideo, listVideo }: IProps) {
             // afterChange={onChange}
             ref={slider}
           >
-            {listVideo.map(
+            {videoUrlLocalStorage?.map(
               (item: { url: string; id: number }, index: number) => (
                 <div key={index} className="video-container">
                   <video
@@ -106,7 +97,7 @@ export default function MyVideosContent({ showVideo, listVideo }: IProps) {
                   <img
                     src={PauseVideo}
                     className="play-video-btn"
-                    // onClick={handlePlayVideo}
+                    onClick={handlePlayVideo}
                   />
 
                   <img

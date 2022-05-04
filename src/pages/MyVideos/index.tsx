@@ -6,7 +6,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BorderUpload from "../../assets/image/BorderUpload.svg";
 import DeleteVideo from "../../assets/image/Close.svg";
 import DropVideo from "../../assets/image/DropVideo.svg";
@@ -18,6 +18,7 @@ export default function MyVideos() {
   const { Dragger } = Upload;
   const videoRef = useRef<any>(null);
   const [progress, setProgress] = useState(0);
+  const [progressFromFireBase, setProgressFromFireBase] = useState(0);
 
   const videoLink = localStorage.getItem("videoUrl");
   const [videoUrl, setVideoUrl] = useState(videoLink);
@@ -51,6 +52,20 @@ export default function MyVideos() {
     setStatus(false);
   };
 
+  useEffect(() => {
+    if (progress < progressFromFireBase) {
+      setProgress(progressFromFireBase);
+    }
+  }, [progressFromFireBase]);
+
+  useEffect(() => {
+    if (progress == 100) {
+      setTimeout(() => {
+        setProgress(0);
+      }, 1000);
+    }
+  });
+
   const uploadFiles = async (file: any) => {
     setFileName(file.name);
     const storage = getStorage();
@@ -58,27 +73,13 @@ export default function MyVideos() {
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // if (action === "pause") {
-    //   uploadTask.pause();
-    // }
-
-    // if (action === "cancel") {
-    //   console.log("cancel");
-
-    //   uploadTask.cancel();
-    // }
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        if (
-          progress <
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        ) {
-          return;
-        } else {
-          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        }
+        const progressData =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        setProgressFromFireBase(progressData);
 
         switch (snapshot.state) {
           case "paused":
@@ -109,8 +110,16 @@ export default function MyVideos() {
     }, 1);
   };
 
+  //get url video from localStorage
+  const urlVideo = localStorage.getItem("videoContent");
+  const videoUrlLocalStorage = JSON.parse(urlVideo || "[]");
+
   const handleAddVideo = (values: any) => {
     setShowVideo(true);
+    localStorage.setItem(
+      "videoContent",
+      JSON.stringify([...videoUrlLocalStorage, { ...values, id: uuidv4() }])
+    );
     setListVideo([...listVideo, { ...values, id: uuidv4() }]);
   };
 
@@ -139,11 +148,12 @@ export default function MyVideos() {
       </p>
 
       {videoUrl ? (
-        <div className="video-container">
+        <div className="video-demo-container">
           <video
             ref={videoRef}
             src={videoUrl ? videoUrl : ""}
             width={370}
+            style={{ borderTopRightRadius: "8px", borderTopLeftRadius: "8px" }}
             autoPlay
             loop
           />
@@ -213,7 +223,7 @@ export default function MyVideos() {
       <div className="all-video-container">
         <h3 className="intro-video">Videos about locations I serve:</h3>
         <div className="mgt-16">
-          {listVideo.length > 0 ? (
+          {videoUrlLocalStorage.length > 0 ? (
             <div className="flex" style={{ height: "20px" }}>
               <p className="type-video">Places I serve</p>
               <p
@@ -266,7 +276,7 @@ export default function MyVideos() {
               </Form>
             ) : (
               <>
-                {listVideo.length > 0 ? (
+                {videoUrlLocalStorage.length > 0 ? (
                   ""
                 ) : (
                   <>

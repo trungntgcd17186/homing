@@ -1,11 +1,14 @@
 import { Modal } from "antd";
 import React, { useContext, useState } from "react";
 import AddPhoneNumber from "../../assets/image/AddPhoneNumber.svg";
-import { Context } from "../../Context/RouteContext";
+import { Context } from "../../Context/GlobalContext";
 import VerifyPhoneNumber from "../VerifyPhoneNumber";
 import CountryPhoneInputAntd from "./CountryPhoneInput";
 
-function AddPhone() {
+interface IProps {
+  user: {};
+}
+function AddPhone({ user }: IProps) {
   const context = useContext(Context);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
@@ -13,18 +16,28 @@ function AddPhone() {
   };
 
   const handleOk = () => {
-    setIsModalVisible(false);
-    context.setIsModalVerifyPhoneNumberVisible(true);
+    if (context.getPhoneNumber.phone.length === 10) {
+      setIsModalVisible(false);
+      context.setIsModalVerifyPhoneNumberVisible(true);
+    }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
   return (
     <>
-      <p className="add-phonenumber cursor" onClick={showModal}>
-        Add your phone number
-      </p>
+      {user ? (
+        <p className="change-verified-phone-number-btn" onClick={showModal}>
+          Change
+        </p>
+      ) : (
+        <p className="add-phonenumber cursor" onClick={showModal}>
+          Add your phone number
+        </p>
+      )}
+
       <Modal
         visible={isModalVisible}
         onOk={handleOk}

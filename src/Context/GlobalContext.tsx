@@ -14,6 +14,8 @@ function GlobalProvider({ children }: RouteKeyProviderProps) {
   const [isModalVerifyPhoneNumberVisible, setIsModalVerifyPhoneNumberVisible] =
     useState(false);
 
+  const [getPhoneNumber, setGetPhoneNumber] = useState({});
+
   const value = {
     routeKey,
     setRouteKey,
@@ -23,6 +25,8 @@ function GlobalProvider({ children }: RouteKeyProviderProps) {
     dataUser,
     setIsModalVerifyPhoneNumberVisible,
     isModalVerifyPhoneNumberVisible,
+    setGetPhoneNumber,
+    getPhoneNumber,
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }

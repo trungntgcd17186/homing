@@ -1,5 +1,5 @@
 import { Spin } from "antd";
-import { collection, getDocs, query } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import Facebook from "../../assets/image/Facebook.svg";
 import In from "../../assets/image/In.svg";
@@ -7,11 +7,11 @@ import Instagram from "../../assets/image/Instagram.svg";
 import Line from "../../assets/image/LineSocialMedia.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
+import VerifiedPhoneNumberIcon from "../../assets/image/VerifiedPhoneNumberIcon.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
-import { Context } from "../../Context/RouteContext";
+import { Context } from "../../Context/GlobalContext";
 import AddPhone from "../AddPhone";
 import { db } from "../firebaseConfig";
-import VerifyPhoneNumber from "../VerifyPhoneNumber";
 
 interface IProp {
   disabled: boolean;
@@ -20,9 +20,7 @@ export default function ProfileContent({ disabled }: IProp) {
   const context = useContext(Context);
   const [showSpinLoading, setShowSpinLoading] = useState(false);
 
-  const usersCollectionRef = collection(db, "users");
-
-  const [user, setUser] = useState<IData>({
+  const [user, setUser] = useState<any>({
     socialMedia: {},
     aboutMe: "",
   });
@@ -36,16 +34,9 @@ export default function ProfileContent({ disabled }: IProp) {
   }, [context.edit]);
 
   const getUsers = async () => {
-    const q = query(usersCollectionRef);
+    const response = await getDoc(doc(db, "users", "wBHXu0KsEE3toBtW0RJ2"));
 
-    const data: { docs: any[] } = await getDocs(q);
-
-    const listUser = data.docs.map((doc: any) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    setUser(listUser[0]);
+    setUser(response.data());
   };
 
   const Icon: any = {
@@ -58,7 +49,7 @@ export default function ProfileContent({ disabled }: IProp) {
   };
 
   //Xử lý xóa attribute contenteditable gây ra lỗi không click link được.
-  const dataFromTextEditor = user.aboutMe.split("contenteditable").join("");
+  const dataFromTextEditor = user.aboutMe?.split("contenteditable").join("");
 
   const handleCheckEmptyLicense = () => {
     if (user.license) {
@@ -143,6 +134,28 @@ export default function ProfileContent({ disabled }: IProp) {
     }
   };
 
+  const handleFormatPhoneNumber = () => {
+    if (user.phoneNumber) {
+      //Tạo khoảng trắng và chèn vào sau mỗi 3 số điện thoại.
+      const result =
+        // user.phoneNumber.phone.substring(0, 3) +
+        // " " +
+        // user.phoneNumber.phone.substring(3, 6) +
+        // " " +
+        // user.phoneNumber.phone.substring(6);
+        "";
+
+      return (
+        <div className="verified-phone-number">
+          {"+" + user.phoneNumber.code + " " + user.phoneNumber.phone + " "}
+          <img src={VerifiedPhoneNumberIcon} alt="icon" />
+        </div>
+      );
+    } else {
+      return <AddPhone user={user.phoneNumber} />;
+    }
+  };
+
   return (
     <>
       {(() => {
@@ -186,8 +199,7 @@ export default function ProfileContent({ disabled }: IProp) {
                           {user.email ? user.email : "Please enter your email"}
                         </p>
 
-                        <AddPhone />
-
+                        {handleFormatPhoneNumber()}
                         {handleCheckEmptyLicense()}
                         {handleCheckEmptyExperience()}
                         {handleCheckEmptyLanguage()}

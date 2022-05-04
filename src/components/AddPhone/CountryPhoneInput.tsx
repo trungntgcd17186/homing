@@ -1,13 +1,20 @@
-import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
+import CountryPhoneInput, {
+  ConfigProvider,
+  CountryPhoneInputValue,
+} from "antd-country-phone-input";
 import "antd-country-phone-input/dist/index.css";
 import "antd/dist/antd.css";
+import { useContext } from "react";
 import English from "world_countries_lists/data/countries/en/world.json";
+import { Context } from "../../Context/GlobalContext";
 
 // You could use any flag package you like.
 // example: npm install flagpack
 // import "flagpack/dist/flagpack.css";
 
 const CountryPhoneInputAntd = () => {
+  const context = useContext(Context);
+
   const getFlag = (short: string) => {
     const data = require(`world_countries_lists/data/flags/24x24/${short.toLowerCase()}.png`);
     // for dumi
@@ -16,6 +23,10 @@ const CountryPhoneInputAntd = () => {
     }
     // for CRA
     return data.default;
+  };
+
+  const handleChangePhoneInput = (e: CountryPhoneInputValue) => {
+    context.setGetPhoneNumber(e);
   };
 
   return (
@@ -40,7 +51,33 @@ const CountryPhoneInputAntd = () => {
             style={{ marginTop: 0 }}
             defaultValue={{ short: "VN" }}
             type="number"
+            onChange={handleChangePhoneInput}
           />
+
+          {context.getPhoneNumber.phone?.length === 0 ? (
+            <p style={{ textAlign: "center", color: "red" }}>
+              Please enter your phone number!!!
+            </p>
+          ) : (
+            ""
+          )}
+
+          {context.getPhoneNumber.phone?.length > 0 &&
+          context.getPhoneNumber.phone?.length < 10 ? (
+            <p style={{ textAlign: "center", color: "red" }}>
+              The phone number length must be 10.
+            </p>
+          ) : (
+            ""
+          )}
+
+          {context.getPhoneNumber.phone?.length > 10 ? (
+            <p style={{ textAlign: "center", color: "red" }}>
+              The phone number length must be 10.
+            </p>
+          ) : (
+            ""
+          )}
         </div>
       </ConfigProvider>
     </>

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import AllowClearIcon from "../../assets/image/AllowClearIcon.svg";
@@ -9,11 +9,11 @@ import Instagram from "../../assets/image/Instagram.svg";
 import Line from "../../assets/image/LineSocialMedia.svg";
 import Pinterest from "../../assets/image/Pinterest.svg";
 import Twitter from "../../assets/image/Twitter.svg";
+import VerifiedPhoneNumberIcon from "../../assets/image/VerifiedPhoneNumberIcon.svg";
 import Vimeo from "../../assets/image/Vimeo.svg";
-import { Context } from "../../Context/RouteContext";
+import { Context } from "../../Context/GlobalContext";
 import AddPhone from "../AddPhone";
 import { db } from "../firebaseConfig";
-import VerifyPhoneNumber from "../VerifyPhoneNumber";
 import Editor from "./Editor";
 import "./style.css";
 
@@ -26,8 +26,8 @@ const { Option } = Select;
 
 export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   const context = useContext(Context);
-  const usersCollectionRef = collection(db, "users");
-  const [user, setUser] = useState<IData>({
+
+  const [user, setUser] = useState<any>({
     socialMedia: {},
     aboutMe: "",
   });
@@ -42,16 +42,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   }, [context.edit]);
 
   const getUsers = async () => {
-    const q = query(usersCollectionRef);
+    const response = await getDoc(doc(db, "users", "wBHXu0KsEE3toBtW0RJ2"));
 
-    const data: { docs: any[] } = await getDocs(q);
-    const listUser = data.docs.map((doc: any) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    setUser(listUser[0]);
-    context.setDataUser(listUser[0]);
+    setUser(response.data());
+    context.setDataUser(response.data());
   };
 
   const showModal = () => {
@@ -77,7 +71,7 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
     });
     // Add a new document in collection "cities"
     try {
-      const userDoc = doc(db, "users", "1RljEtbnk0BcXx2oq3ws");
+      const userDoc = doc(db, "users", "wBHXu0KsEE3toBtW0RJ2");
       await updateDoc(userDoc, {
         ...values,
         aboutMe: message,
@@ -124,6 +118,27 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
   function handleChangeOption(value: any) {
     console.log(`selected ${value}`);
   }
+
+  const handleFormatPhoneNumber = () => {
+    if (user.phoneNumber) {
+      return (
+        <>
+          <div className="verified-phone-number flex">
+            {"+" + user.phoneNumber.code + " " + user.phoneNumber.phone}
+            <img
+              src={VerifiedPhoneNumberIcon}
+              width={24}
+              alt="icon"
+              style={{ marginLeft: "4px", marginTop: "-2px" }}
+            />
+          </div>
+          <AddPhone user={user.phoneNumber} />
+        </>
+      );
+    } else {
+      return;
+    }
+  };
 
   return (
     <>
@@ -181,7 +196,10 @@ export default function ProfileEdit({ disabled, handleSaveProfile }: IProp) {
 
                 <div className="item flex">
                   <p>Phone number:</p>
-                  <AddPhone />
+
+                  <div className="flex" style={{ width: "400px" }}>
+                    {handleFormatPhoneNumber()}
+                  </div>
                 </div>
 
                 <Form.Item

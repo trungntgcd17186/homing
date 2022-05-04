@@ -54,6 +54,27 @@
   width: 400px;
 }
 
+.verified-phone-number {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #484848;
+  padding-bottom: 10px;
+}
+
+.change-verified-phone-number-btn {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #8551db;
+  margin-left: 14px;
+}
+
 .mgt {
   margin-top: 5px;
 }
@@ -91,12 +112,12 @@
 .avatar-container {
   width: 120px;
   height: 120px;
-
+  transform: translateX(-100px);
   margin-top: 44px;
 }
 
 .margin-avatar {
-  transform: translate(-150px, 0px);
+  transform: translate(-100px, 0px);
 }
 
 .btn-container {
