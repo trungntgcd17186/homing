@@ -1,6 +1,7 @@
-import { Row, Col } from "antd";
-import { RowProps } from "antd/lib/row";
-import Loading3QuartersOutlined from "@ant-design/icons/Loading3QuartersOutlined";
+import React from 'react'
+import { Row, Col } from 'antd'
+import { RowProps } from 'antd/lib/row'
+import Loading3QuartersOutlined from '@ant-design/icons/Loading3QuartersOutlined'
 
 const Loading = (props: RowProps) => {
   return (
@@ -9,7 +10,7 @@ const Loading = (props: RowProps) => {
         <Loading3QuartersOutlined spin />
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

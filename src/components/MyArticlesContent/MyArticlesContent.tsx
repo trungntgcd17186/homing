@@ -1,70 +1,67 @@
-import { Carousel } from "antd";
-import { collection, getDocs, query } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
-import Next from "../../assets/image/Next.svg";
-import Prev from "../../assets/image/Prev.svg";
-import { db } from "../firebaseConfig";
-export default function MyArticlesContent() {
-  const slider = useRef<any>(null);
-  const [content, setContent] = useState<any[]>([]);
-  const contentCollectionRef = collection(db, "content");
-  useEffect(() => {
-    getUsers();
-  }, []);
+import { Carousel } from 'antd'
+import { collection, getDocs, query } from 'firebase/firestore'
+import React, { useEffect, useRef, useState } from 'react'
+import Next from '../../assets/image/Next.svg'
+import Prev from '../../assets/image/Prev.svg'
+import { db } from '../firebaseConfig'
+export default function MyArticlesContent () {
+  const slider = useRef<any>(null)
+  const [content, setContent] = useState<any[]>([])
+  const contentCollectionRef = collection(db, 'content')
 
   const getUsers = async () => {
-    const q = query(contentCollectionRef);
+    const q = query(contentCollectionRef)
 
-    const data: { docs: any[] } = await getDocs(q);
+    const data: { docs: any[] } = await getDocs(q)
 
     const listUser = data.docs.map((doc: any) => ({
       ...doc.data(),
-      id: doc.id,
-    }));
+      id: doc.id
+    }))
 
-    setContent(listUser);
-  };
-
-  function onChange(currentSlide: number) {
-    console.log(currentSlide);
+    setContent(listUser)
   }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   const carouselSettings = {
     slidesToShow: 3,
     slidesToScroll: 1,
-    dots: false,
-  };
+    dots: false
+  }
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <img
         style={{
-          cursor: "pointer",
-          position: "absolute",
-          top: "20%",
-          left: "-1.4%",
-          zIndex: "999",
+          cursor: 'pointer',
+          position: 'absolute',
+          top: '20%',
+          left: '-1.4%',
+          zIndex: '999'
         }}
         src={Prev}
         onClick={() => slider.current.prev()}
       />
       <img
         style={{
-          cursor: "pointer",
-          position: "absolute",
-          zIndex: "999",
-          top: "20%",
-          right: "-1.4%",
+          cursor: 'pointer',
+          position: 'absolute',
+          zIndex: '999',
+          top: '20%',
+          right: '-1.4%'
         }}
         src={Next}
         onClick={() => slider.current.next()}
       />
       <Carousel
         {...carouselSettings}
-        style={{ height: "295px", width: "847px" }}
+        style={{ height: '295px', width: '847px' }}
         // afterChange={onChange}
         ref={slider}
-        //autoplay
+        // autoplay
       >
         {content.map((item, index) => (
           <div key={index}>
@@ -78,11 +75,11 @@ export default function MyArticlesContent() {
               />
               <p className="modal-title-content">{item.title}</p>
               <div
-                style={{ marginLeft: "12px", fontWeight: "300" }}
+                style={{ marginLeft: '12px', fontWeight: '300' }}
                 dangerouslySetInnerHTML={{
                   __html: item.content
-                    .split(`class="editor-input" contenteditable="true"`)
-                    .join(""),
+                    .split('class="editor-input" contenteditable="true"')
+                    .join('')
                 }}
               />
             </div>
@@ -90,5 +87,5 @@ export default function MyArticlesContent() {
         ))}
       </Carousel>
     </div>
-  );
+  )
 }

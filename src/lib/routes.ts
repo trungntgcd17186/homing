@@ -1,9 +1,9 @@
-import Profile from "../pages/Profile";
-import Password from "../pages/Password";
-import Notification from "../pages/Notification";
-import Communications from "../pages/Communications";
-import MyVideos from "../pages/MyVideos";
-import MyArticles from "../pages/MyArticles";
+import Profile from '../pages/Profile'
+import Password from '../pages/Password'
+import Notification from '../pages/Notification'
+import Communications from '../pages/Communications'
+import MyVideos from '../pages/MyVideos'
+import MyArticles from '../pages/MyArticles'
 
 export type RouteProps = {
   key: string;
@@ -15,50 +15,50 @@ export type RouteProps = {
   exact?: boolean;
 };
 
-export let routes = [
+export const routes = [
   {
-    key: "/home/profile",
-    title: "Edit Profile",
-    url: "/home/profile",
+    key: '/home/profile',
+    title: 'Edit Profile',
+    url: '/home/profile',
     exact: true,
-    Component: Profile,
+    Component: Profile
   },
   {
-    key: "/home/password",
-    title: "Password",
-    url: "/home/password",
+    key: '/home/password',
+    title: 'Password',
+    url: '/home/password',
     exact: true,
-    Component: Password,
+    Component: Password
   },
   {
-    key: "/home/notification",
-    title: "Notification setting",
-    url: "/home/notification",
+    key: '/home/notification',
+    title: 'Notification setting',
+    url: '/home/notification',
     exact: true,
-    Component: Notification,
+    Component: Notification
   },
   {
-    key: "/home/communications",
-    title: "Communications",
-    url: "/home/communications",
+    key: '/home/communications',
+    title: 'Communications',
+    url: '/home/communications',
     exact: true,
-    Component: Communications,
+    Component: Communications
   },
 
   {
-    key: "/home/myvideos",
-    title: "My videos",
-    url: "/home/myvideos",
+    key: '/home/myvideos',
+    title: 'My videos',
+    url: '/home/myvideos',
     exact: true,
-    Component: MyVideos,
+    Component: MyVideos
   },
   {
-    key: "/home/myarticles",
-    title: "My Articles",
-    url: "/home/myarticles",
+    key: '/home/myarticles',
+    title: 'My Articles',
+    url: '/home/myarticles',
     exact: true,
-    Component: MyArticles,
-  },
-];
+    Component: MyArticles
+  }
+]
 
-export default routes;
+export default routes

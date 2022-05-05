@@ -1,10 +1,10 @@
-import { Menu } from "antd";
-import { SiderProps } from "antd/lib/layout/Sider";
-import React, { useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import VectorUrl from "../../assets/image/VectorUrl.svg";
-import { Context } from "../../Context/GlobalContext";
-import { RouteProps, routes } from "../../lib/routes";
+import { Menu } from 'antd'
+import { SiderProps } from 'antd/lib/layout/Sider'
+import React, { useContext } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import VectorUrl from '../../assets/image/VectorUrl.svg'
+import { Context } from '../../Context/GlobalContext'
+import { RouteProps, routes } from '../../lib/routes'
 interface Props extends SiderProps {}
 
 interface IContext {
@@ -16,27 +16,28 @@ interface IContext {
   img: string;
 }
 
-export default function SiderComponent(props: Props) {
-  const context = useContext(Context);
-  const navigate = useNavigate();
-  const location = useLocation();
+export default function SiderComponent (props: Props) {
+  const context = useContext(Context)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  context.setRouteKey(location.pathname);
+  context.setRouteKey(location.pathname)
 
   const handleTo =
     (context: IContext, key: string, pathname?: string) => () => {
       if (pathname) {
-        navigate(pathname);
+        navigate(pathname)
 
-        //Xử lý active sibar khi click vào menu sidebar
-        context.setRouteKey(key);
+        // Xử lý active sibar khi click vào menu sidebar
+        context.setRouteKey(key)
       }
-    };
+    }
 
   const renderMenuItem = (route: RouteProps, index: number) => {
-    return index === 4 ? (
+    return index === 4
+      ? (
       <>
-        <div style={{ marginLeft: "24px" }}>
+        <div style={{ marginLeft: '24px' }}>
           <p className="my-media">My Media</p>
         </div>
         <Menu.Item
@@ -45,10 +46,11 @@ export default function SiderComponent(props: Props) {
           onClick={handleTo(context, route.key, route.url)}
           className="menu-items"
         >
-          <p style={{ marginTop: "12px" }}>{route.title}</p>
+          <p style={{ marginTop: '12px' }}>{route.title}</p>
         </Menu.Item>
       </>
-    ) : (
+        )
+      : (
       <Menu.Item
         key={route.key}
         disabled={route.disabled}
@@ -57,15 +59,15 @@ export default function SiderComponent(props: Props) {
       >
         {route.title}
       </Menu.Item>
-    );
-  };
+        )
+  }
   return (
     <div>
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: '20px' }}>
         <a className="pathname-1" href="">
           Home
         </a>
-        <img style={{ marginLeft: "7px" }} src={VectorUrl} alt="icon" />
+        <img style={{ marginLeft: '7px' }} src={VectorUrl} alt="icon" />
         <a className="pathname-2" href="">
           Edit My Profile
         </a>
@@ -82,5 +84,5 @@ export default function SiderComponent(props: Props) {
         </Menu>
       </div>
     </div>
-  );
+  )
 }

@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import Edit from "../../assets/image/Edit.svg";
-import AvatarComponent from "../../components/Avatar";
-import ProfileContent from "../../components/ProfileContent";
-import ProfileEdit from "../../components/ProfileEdit";
-import "./index.css";
+import React, { useState } from 'react'
+import Edit from '../../assets/image/Edit.svg'
+import AvatarComponent from '../../components/Avatar'
+import ProfileContent from '../../components/ProfileContent'
+import ProfileEdit from '../../components/ProfileEdit'
+import './index.css'
 
-function Profile() {
-  const [hideComponentContent, setHideComponentContent] = useState(true);
-  const [hideComponentEdit, setHideComponentEdit] = useState(false);
-  const [hideElement, setHideElement] = useState("");
+function Profile () {
+  const [hideComponentContent, setHideComponentContent] = useState(true)
+  const [hideComponentEdit, setHideComponentEdit] = useState(false)
+  const [hideElement, setHideElement] = useState('')
 
   const handleEditProfile = () => {
-    setHideComponentContent(false);
-    setHideComponentEdit(true);
-    setHideElement("none");
-  };
+    setHideComponentContent(false)
+    setHideComponentEdit(true)
+    setHideElement('none')
+  }
 
   const handleSaveProfile = () => {
-    //Set time để không bị disconnect submit form từ component con.
+    // Set time để không bị disconnect submit form từ component con.
     setTimeout(() => {
-      setHideComponentEdit(false);
-      setHideComponentContent(true);
-      setHideElement("");
-    }, 1);
-  };
+      setHideComponentEdit(false)
+      setHideComponentContent(true)
+      setHideElement('')
+    }, 1)
+  }
 
   return (
     <div className="container flex">
       <div>
-        <div className="flex" style={{ alignItems: "center" }}>
+        <div className="flex" style={{ alignItems: 'center' }}>
           <p className="title-page">Edit Profile</p>
           <img
             src={Edit}
             alt="icon"
             style={{
-              marginLeft: "16px",
-              cursor: "pointer",
-              height: "20px",
-              width: "20px",
+              marginLeft: '16px',
+              cursor: 'pointer',
+              height: '20px',
+              width: '20px'
             }}
             className={hideElement}
             onClick={handleEditProfile}
@@ -55,7 +55,7 @@ function Profile() {
 
       <AvatarComponent hideComponentEdit={hideComponentEdit} />
     </div>
-  );
+  )
 }
 
-export default Profile;
+export default Profile

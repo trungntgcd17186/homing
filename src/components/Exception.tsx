@@ -1,43 +1,11 @@
-import { Button } from "antd";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import env from "../utils/env";
-
+import { Button } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import env from '../utils/env'
 type Props = {
   type?: number | string | 404;
 };
-
-export default function Exception({ type = 404 }: Props) {
-  return (
-    <ExceptionWrapper>
-      <div className="exception">
-        <div className="exception__imgBlock">
-          <div
-            className="exception__imgEle"
-            style={{
-              backgroundImage: `url("${env.publicUrl}/img/${type}.svg")`,
-            }}
-          />
-        </div>
-        <div className="exception__content">
-          <h1>404</h1>
-          <div className="exception__desc">
-            {type === 404
-              ? "Sorry, the page you visited does not exist."
-              : type === 500
-              ? "Sorry, the server is reporting an error."
-              : `Sorry, you don't have access to this page.`}
-          </div>
-          <div className="exception__actions">
-            <Link to="/">
-              <Button color="primary">Back</Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </ExceptionWrapper>
-  );
-}
 
 const ExceptionWrapper = styled.div`
   height: 100vh;
@@ -86,4 +54,36 @@ const ExceptionWrapper = styled.div`
     font-size: 20px;
     line-height: 28px;
   }
-`;
+`
+
+export default function Exception ({ type = 404 }: Props) {
+  return (
+    <ExceptionWrapper>
+      <div className="exception">
+        <div className="exception__imgBlock">
+          <div
+            className="exception__imgEle"
+            style={{
+              backgroundImage: `url("${env.publicUrl}/img/${type}.svg")`
+            }}
+          />
+        </div>
+        <div className="exception__content">
+          <h1>404</h1>
+          <div className="exception__desc">
+            {type === 404
+              ? 'Sorry, the page you visited does not exist.'
+              : type === 500
+                ? 'Sorry, the server is reporting an error.'
+                : 'Sorry, you don\'t have access to this page.'}
+          </div>
+          <div className="exception__actions">
+            <Link to="/">
+              <Button color="primary">Back</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </ExceptionWrapper>
+  )
+}

@@ -1,4 +1,4 @@
-interface IData {
+export interface IData {
   name?: string;
   email?: string;
   phoneNumber?: number;

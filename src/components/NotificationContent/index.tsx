@@ -1,6 +1,6 @@
-import React from "react";
-import { Switch } from "antd";
-import "./index.css";
+import React from 'react'
+import { Switch } from 'antd'
+import './index.css'
 
 interface IProps {
   modeName: string;
@@ -9,28 +9,28 @@ interface IProps {
   borderBottom: string;
 }
 
-export default function NotificationContent({
+export default function NotificationContent ({
   modeName,
   des,
   margin,
-  borderBottom,
+  borderBottom
 }: IProps) {
-  function onChange(checked: any) {
-    console.log(`switch to ${checked}`);
+  function onChange (checked: any) {
+    console.log(`switch to ${checked}`)
   }
   return (
     <div style={{ marginTop: `${margin}` }}>
       <div
         style={{
-          borderBottom: `${borderBottom}`,
+          borderBottom: `${borderBottom}`
         }}
       >
         <div
           style={{
-            display: "flex",
-            width: "85%",
-            justifyContent: "space-between",
-            borderBottom: "1px solid #F1F1F1",
+            display: 'flex',
+            width: '85%',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid #F1F1F1'
           }}
         >
           <div>
@@ -39,17 +39,17 @@ export default function NotificationContent({
           </div>
 
           <div>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: 'flex' }}>
               <Switch size="small" defaultChecked onChange={onChange} />
               <p className="mode">Push</p>
             </div>
 
-            <div style={{ display: "flex" }}>
+            <div style={{ display: 'flex' }}>
               <Switch size="small" defaultChecked onChange={onChange} />
               <p className="mode">Email</p>
             </div>
 
-            <div style={{ display: "flex" }}>
+            <div style={{ display: 'flex' }}>
               <Switch size="small" onChange={onChange} />
               <p className="mode">SMS</p>
             </div>
@@ -57,5 +57,5 @@ export default function NotificationContent({
         </div>
       </div>
     </div>
-  );
+  )
 }

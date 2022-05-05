@@ -1,42 +1,44 @@
-import { Modal } from "antd";
-import React, { useContext, useState } from "react";
-import AddPhoneNumber from "../../assets/image/AddPhoneNumber.svg";
-import { Context } from "../../Context/GlobalContext";
-import VerifyPhoneNumber from "../VerifyPhoneNumber";
-import CountryPhoneInputAntd from "./CountryPhoneInput";
+import { Modal } from 'antd'
+import React, { useContext, useState } from 'react'
+import AddPhoneNumber from '../../assets/image/AddPhoneNumber.svg'
+import { Context } from '../../Context/GlobalContext'
+import VerifyPhoneNumber from '../VerifyPhoneNumber'
+import CountryPhoneInputAntd from './CountryPhoneInput'
 
 interface IProps {
   user: {};
 }
-function AddPhone({ user }: IProps) {
-  const context = useContext(Context);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+function AddPhone ({ user }: IProps) {
+  const context = useContext(Context)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const showModal = () => {
-    setIsModalVisible(true);
-  };
+    setIsModalVisible(true)
+  }
 
   const handleOk = () => {
-    if (context.getPhoneNumber.phone.length === 10) {
-      setIsModalVisible(false);
-      context.setIsModalVerifyPhoneNumberVisible(true);
+    if (context.getPhoneNumber.phone?.length === 10) {
+      setIsModalVisible(false)
+      context.setIsModalVerifyPhoneNumberVisible(true)
     }
-  };
+  }
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   return (
     <>
-      {user ? (
+      {user
+        ? (
         <p className="change-verified-phone-number-btn" onClick={showModal}>
           Change
         </p>
-      ) : (
+          )
+        : (
         <p className="add-phonenumber cursor" onClick={showModal}>
           Add your phone number
         </p>
-      )}
+          )}
 
       <Modal
         visible={isModalVisible}
@@ -52,10 +54,10 @@ function AddPhone({ user }: IProps) {
         </p>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "38px",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '38px'
           }}
         >
           <img src={AddPhoneNumber} alt="icon" />
@@ -63,10 +65,10 @@ function AddPhone({ user }: IProps) {
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20px",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '20px'
           }}
         >
           <p className="add-phone-modal-content">
@@ -74,14 +76,14 @@ function AddPhone({ user }: IProps) {
             information with agents and service providers on the platform this
             makes your journey much more relaxed and at your pace! Here is our
             <span className="add-phone-modal-privacy-policy">
-              {" " + "privacy policy"}
+              {' ' + 'privacy policy'}
             </span>
           </p>
         </div>
 
         <div
           style={{
-            marginTop: "28px",
+            marginTop: '28px'
           }}
         >
           <CountryPhoneInputAntd />
@@ -89,21 +91,24 @@ function AddPhone({ user }: IProps) {
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20px",
-            paddingBottom: "47px",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '20px',
+            paddingBottom: '47px'
           }}
         >
-          <button className="add-phone-modal-submit-btn" onClick={handleOk}>
+          <button
+            className="add-phone-modal-submit-btn cursor"
+            onClick={handleOk}
+          >
             Submit
           </button>
         </div>
         <VerifyPhoneNumber />
       </Modal>
     </>
-  );
+  )
 }
 
-export default AddPhone;
+export default AddPhone

@@ -1,53 +1,53 @@
-import { Button, Form, Input, Modal } from "antd";
-import { addDoc, collection } from "firebase/firestore";
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-import React, { useState } from "react";
-import { db } from "../../components/firebaseConfig";
-import MyArticlesContent from "../../components/MyArticlesContent/MyArticlesContent";
-import Editor from "../../components/ProfileEdit/Editor";
-import "./index.css";
+import { Button, Form, Input, Modal } from 'antd'
+import { addDoc, collection } from 'firebase/firestore'
+import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
+import React, { useState } from 'react'
+import { db } from '../../components/firebaseConfig'
+import MyArticlesContent from '../../components/MyArticlesContent/MyArticlesContent'
+import Editor from '../../components/ProfileEdit/Editor'
+import './index.css'
 
-export default function MyArticles() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [message, setMessage] = useState("");
+export default function MyArticles () {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [message, setMessage] = useState('')
 
   const showModal = () => {
-    setIsModalVisible(true);
-  };
+    setIsModalVisible(true)
+  }
 
   const handleOk = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   const callbackFunction = (childData: string) => {
-    setMessage(childData);
-  };
+    setMessage(childData)
+  }
 
   const onFinish = async (values: { title: string; content: string }) => {
-    console.log("Success:", {
-      ...values,
-    });
+    console.log('Success:', {
+      ...values
+    })
     // Add a new document in collection "cities"
     try {
-      const docRef = await addDoc(collection(db, "content"), {
+      const docRef = await addDoc(collection(db, 'content'), {
         ...values,
-        content: message,
-      });
-      console.log("Document written with ID: ", docRef.id);
+        content: message
+      })
+      console.log('Document written with ID: ', docRef.id)
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error('Error adding document: ', e)
     }
-  };
+  }
 
   const onFinishFailed = (
     errorInfo: ValidateErrorEntity<{ title: string; content: string }>
   ) => {
-    console.log("Failed:", errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <div className="container">
@@ -56,20 +56,20 @@ export default function MyArticles() {
         {/* <p className="description">You don't have any article...</p> */}
       </div>
 
-      <div style={{ marginTop: "32px" }}>
+      <div style={{ marginTop: '32px' }}>
         <p className="title-content">Create content</p>
         <Button
           style={{
-            marginTop: "13px",
-            height: "32px",
-            width: "446px",
-            borderRadius: "4px",
-            border: "1px solid #8551db",
-            boxSizing: "border-box",
-            color: "#8551DB",
-            fontWeight: "500",
-            fontFamily: "Poppins",
-            fontStyle: "normal",
+            marginTop: '13px',
+            height: '32px',
+            width: '446px',
+            borderRadius: '4px',
+            border: '1px solid #8551db',
+            boxSizing: 'border-box',
+            color: '#8551DB',
+            fontWeight: '500',
+            fontFamily: 'Poppins',
+            fontStyle: 'normal'
           }}
           onClick={showModal}
         >
@@ -77,21 +77,21 @@ export default function MyArticles() {
         </Button>
       </div>
 
-      <div style={{ marginTop: "27px" }}>
+      <div style={{ marginTop: '27px' }}>
         <p className="title-content">Or upload new article from a URL</p>
         <Input
           style={{
-            marginTop: "12px",
-            height: "32px",
-            width: "446px",
-            borderRadius: "4px",
-            background: "#FFFFFF",
-            border: "1px solid #DDE1E9",
+            marginTop: '12px',
+            height: '32px',
+            width: '446px',
+            borderRadius: '4px',
+            background: '#FFFFFF',
+            border: '1px solid #DDE1E9'
           }}
         />
       </div>
 
-      <div style={{ marginTop: "40px" }}>
+      <div style={{ marginTop: '40px' }}>
         <div className="component-wrapper">
           <MyArticlesContent />
         </div>
@@ -105,7 +105,7 @@ export default function MyArticles() {
         closable={true}
         okText="Save"
         width="40%"
-        style={{ display: "flex", justifyContent: "flex-start" }}
+        style={{ display: 'flex', justifyContent: 'flex-start' }}
       >
         <Form
           name="basic"
@@ -115,9 +115,9 @@ export default function MyArticles() {
         >
           <Form.Item
             style={{
-              marginLeft: "24px",
-              display: "flex",
-              flexDirection: "column",
+              marginLeft: '24px',
+              display: 'flex',
+              flexDirection: 'column'
             }}
             label="Title"
             name="title"
@@ -125,51 +125,51 @@ export default function MyArticles() {
             <Input
               placeholder="Top tips fors taging your home"
               style={{
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "16px",
-                lineHeight: "24px",
-                color: "#484848",
-                width: "90%",
+                fontFamily: 'Poppins',
+                fontStyle: 'normal',
+                fontWeight: '600',
+                fontSize: '16px',
+                lineHeight: '24px',
+                color: '#484848',
+                width: '90%'
               }}
             />
           </Form.Item>
           <div
             style={{
-              display: "flex",
-              justifyContent: "flex-start",
+              display: 'flex',
+              justifyContent: 'flex-start'
             }}
           >
             <Editor parentCallback={callbackFunction} />
           </div>
           <div
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              width: "100%",
-              height: "60px",
-              boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.15)",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              width: '100%',
+              height: '60px',
+              boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.15)'
             }}
           >
             <button
               onClick={handleOk}
               type="submit"
               style={{
-                marginRight: "24px",
-                height: "36px",
-                width: "140px",
-                background: "#8551DB",
-                border: "1px solid #8551DB",
-                boxSizing: "border-box",
-                borderRadius: "39px",
-                color: "#FFFFFF",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "14px",
-                lineHeight: "20px",
+                marginRight: '24px',
+                height: '36px',
+                width: '140px',
+                background: '#8551DB',
+                border: '1px solid #8551DB',
+                boxSizing: 'border-box',
+                borderRadius: '39px',
+                color: '#FFFFFF',
+                fontFamily: 'Poppins',
+                fontStyle: 'normal',
+                fontWeight: '500',
+                fontSize: '14px',
+                lineHeight: '20px'
               }}
             >
               Save
@@ -178,5 +178,5 @@ export default function MyArticles() {
         </Form>
       </Modal>
     </div>
-  );
+  )
 }
